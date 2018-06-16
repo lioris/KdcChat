@@ -1,0 +1,203 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{DEB6AA2D-6587-4D02-BEEA-7A5CC0B9F617}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>client</RootNamespace>
+    <AssemblyName>client</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility" />
+    <Reference Include="PresentationUI, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="ReachFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Printing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="ClientCallBack.cs" />
+    <Compile Include="Proxy.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="LogIn.xaml.cs">
+      <DependentUpon>LogIn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\players\emptyPlayer.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\TableBackGround.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\cards\cardFliepd.png" />
+    <Resource Include="imgs\cards\cl1.gif" />
+    <Resource Include="imgs\cards\cl10.gif" />
+    <Resource Include="imgs\cards\cl2.gif" />
+    <Resource Include="imgs\cards\cl3.gif" />
+    <Resource Include="imgs\cards\cl4.gif" />
+    <Resource Include="imgs\cards\cl5.gif" />
+    <Resource Include="imgs\cards\cl6.gif" />
+    <Resource Include="imgs\cards\cl7.gif" />
+    <Resource Include="imgs\cards\cl8.gif" />
+    <Resource Include="imgs\cards\cl9.gif" />
+    <Resource Include="imgs\cards\cl11.gif" />
+    <Resource Include="imgs\cards\cl13.gif" />
+    <Resource Include="imgs\cards\cl12.gif" />
+    <Resource Include="imgs\cards\di1.gif" />
+    <Resource Include="imgs\cards\di10.gif" />
+    <Resource Include="imgs\cards\di2.gif" />
+    <Resource Include="imgs\cards\di3.gif" />
+    <Resource Include="imgs\cards\di4.gif" />
+    <Resource Include="imgs\cards\di5.gif" />
+    <Resource Include="imgs\cards\di6.gif" />
+    <Resource Include="imgs\cards\di7.gif" />
+    <Resource Include="imgs\cards\di8.gif" />
+    <Resource Include="imgs\cards\di9.gif" />
+    <Resource Include="imgs\cards\di11.gif" />
+    <Resource Include="imgs\cards\di13.gif" />
+    <Resource Include="imgs\cards\di12.gif" />
+    <Resource Include="imgs\cards\he1.gif" />
+    <Resource Include="imgs\cards\he10.gif" />
+    <Resource Include="imgs\cards\he2.gif" />
+    <Resource Include="imgs\cards\he3.gif" />
+    <Resource Include="imgs\cards\he4.gif" />
+    <Resource Include="imgs\cards\he5.gif" />
+    <Resource Include="imgs\cards\he6.gif" />
+    <Resource Include="imgs\cards\he7.gif" />
+    <Resource Include="imgs\cards\he8.gif" />
+    <Resource Include="imgs\cards\he9.gif" />
+    <Resource Include="imgs\cards\he11.gif" />
+    <Resource Include="imgs\cards\he13.gif" />
+    <Resource Include="imgs\cards\he12.gif" />
+    <Resource Include="imgs\cards\sp1.gif" />
+    <Resource Include="imgs\cards\sp10.gif" />
+    <Resource Include="imgs\cards\sp2.gif" />
+    <Resource Include="imgs\cards\sp3.gif" />
+    <Resource Include="imgs\cards\sp4.gif" />
+    <Resource Include="imgs\cards\sp5.gif" />
+    <Resource Include="imgs\cards\sp6.gif" />
+    <Resource Include="imgs\cards\sp7.gif" />
+    <Resource Include="imgs\cards\sp8.gif" />
+    <Resource Include="imgs\cards\sp9.gif" />
+    <Resource Include="imgs\cards\sp11.gif" />
+    <Resource Include="imgs\cards\sp13.gif" />
+    <Resource Include="imgs\cards\sp12.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\dealerChip.gif" />
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="LogIn.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Contracts\Contracts.csproj">
+      <Project>{ee54618b-dac7-41b9-acb5-9c2d08d46c57}</Project>
+      <Name>Contracts</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\LinqToSql\LinqToSql.csproj">
+      <Project>{c6010f7e-06e9-41d6-8baa-0e69412cc047}</Project>
+      <Name>LinqToSql</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\players\seat1.jpg" />
+    <Resource Include="imgs\players\seat2.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="imgs\players\seat3.jpg" />
+    <Resource Include="imgs\players\seat4.jpg" />
+    <Resource Include="imgs\players\seat5.jpg" />
+    <Resource Include="imgs\players\seat6.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
