@@ -37,10 +37,6 @@ namespace client
             //register to callback singeltone
             ClientCallBack.Instance.addWindow(Constants.LOGIN_WINDOW, this);
 
-            //// start the game server and the data base server
-            //if ((Process.GetProcessesByName("DBhost")).Length == 0)
-            //    Process.Start("D:\\pokerproj\\MyGame\\DBhost\\bin\\Debug\\DBhost.exe");
-
             //if ((Process.GetProcessesByName("GameHost")).Length == 0)
             //    Process.Start("D:\\pokerproj\\MyGame\\GameHost\\bin\\Debug\\GameHost.exe");
 
