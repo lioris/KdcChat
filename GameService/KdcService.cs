@@ -4,6 +4,7 @@ using LinqToSql;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.ServiceModel;
 using System.Text;
 using System.Threading;
@@ -19,6 +20,22 @@ namespace KdcService
 
         KdcService()
         {
+        }
+
+        public CSessionKeyResponse GetSessionKey(CSessionParams sessionParams)
+        {
+            String password1 = "12345678912345";
+            String password2 = "22345678912345";
+            byte[] key = common.CAes.NewKey();
+
+            byte[] keyB = common.CAes.SimpleEncryptWithPassword(key, password2);
+            byte[] keyA = common.CAes.SimpleEncryptWithPassword(key, password1);
+            byte[] keyAB = common.CAes.SimpleEncryptWithPassword(keyB, password1);
+
+            CSessionKeyResponse retVal = new CSessionKeyResponse();
+            retVal.m_sessionKeyA = keyA;
+            retVal.m_sessionKeyB = keyAB;
+            return retVal;
         }
 
         public User LogInApp(string userName)

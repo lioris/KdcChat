@@ -25,9 +25,8 @@ namespace Contracts
 
         //windows names
         public const string LOGIN_WINDOW = "login";
-        public const string LOBBY_WINDOW = "loby";
-        public const string TABLE_WINDOW = "table";
-        public const string NEW_TABLE_WINDOW = "new_table";
+        public const string MAIN_WINDOW = "main_window";
+
 
         public const int FLOP1 = 0;
         public const int FLOP2 = 1;

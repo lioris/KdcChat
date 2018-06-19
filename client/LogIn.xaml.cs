@@ -71,7 +71,7 @@ namespace client
 
         private void btnLogIn_Click(object sender, RoutedEventArgs e)
         {
-            this.setDisable();
+            setDisable();
             
             if (!logInWorker.IsBusy)
             {
@@ -121,8 +121,8 @@ namespace client
             if (user != null)
             {
                 MessageBox.Show("conected with user " + user.Name + "and your id is" + user.ID);
-                //ClientCallBack.Instance.addWindow(Constants.LOBBY_WINDOW, new loby()).Show();
-                //ClientCallBack.Instance.CloseWindow(Constants.LOGIN_WINDOW);
+                ClientCallBack.Instance.addWindow(Constants.MAIN_WINDOW, new MainWin()).Show();
+                ClientCallBack.Instance.CloseWindow(Constants.LOGIN_WINDOW);
             }
             else
             {

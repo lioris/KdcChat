@@ -43,6 +43,8 @@
   <ItemGroup>
     <Compile Include="CAes.cs" />
     <Compile Include="Constants.cs" />
+    <Compile Include="CSessionKeyResponse.cs" />
+    <Compile Include="CSessionParams.cs" />
     <Compile Include="IClientCallBack.cs" />
     <Compile Include="IKdcService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

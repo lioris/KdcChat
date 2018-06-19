@@ -22,6 +22,9 @@ namespace Contracts
         [OperationContract(IsOneWay=true)]
         void LogOutApp(string name);
 
+        [OperationContract]
+        CSessionKeyResponse GetSessionKey(CSessionParams sessionParams);
+
         
         //[OperationContract(IsOneWay = true)]
         //void sendMassage(int tableid, string massage);
