@@ -64,17 +64,19 @@ namespace KdcService
 
             Console.WriteLine("LOGIN: NAME {0} ", userName);
 
-            User msgKdcToClientLoggin = new User();
+            User msgKdcToClientLoggin = null;
 
             //msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, password1);
             //msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(password1, password1);
 
             User retUserFromDB = m_DBservice.getUserByName(userName);
-            if(retUserFromDB != null)
+            if (retUserFromDB != null)
             {
+                msgKdcToClientLoggin = new User();
                 msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, retUserFromDB.PassWord);
                 msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(retUserFromDB.PassWord, retUserFromDB.PassWord);
             }
+            
             return msgKdcToClientLoggin;
         }
 
