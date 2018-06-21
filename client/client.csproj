@@ -66,11 +66,13 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="resources\clientAllData.cs" />
     <Compile Include="ClientCallBack.cs" />
     <Compile Include="MainWin.xaml.cs">
       <DependentUpon>MainWin.xaml</DependentUpon>
     </Compile>
     <Compile Include="Proxy.cs" />
+    <Compile Include="resources\session.cs" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="LogIn.xaml.cs">
