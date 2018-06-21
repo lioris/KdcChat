@@ -19,6 +19,7 @@ using Contracts;
 using LinqToSql;
 using System.Threading;
 using common;
+using System.Security.Cryptography;
 
 namespace client
 {
@@ -103,9 +104,15 @@ namespace client
             }
             else
             {
-                string retDecUserName = CAes.SimpleDecryptWithPassword(userData.Name, passwordInvoked);
-                string retDecPassword = CAes.SimpleDecryptWithPassword(userData.PassWord, passwordInvoked);
-                if (retDecUserName == usernameInvoked && retDecPassword == passwordInvoked)
+                string passWordHash = string.Empty;
+                using (MD5 md5Hash = MD5.Create())
+                {
+                    passWordHash = CMd5hash.GetMd5Hash(md5Hash, passwordInvoked);
+                }
+
+                string retDecUserName = CAes.SimpleDecryptWithPassword(userData.Name, passWordHash);
+                string retDecPassword = CAes.SimpleDecryptWithPassword(userData.PassWord, passWordHash);
+                if (retDecUserName == usernameInvoked && retDecPassword == passWordHash)
                 {
                     userData.Name = retDecUserName;
                     userData.PassWord = retDecPassword;

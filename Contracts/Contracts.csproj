@@ -47,6 +47,7 @@
     <Compile Include="CSessionParams.cs" />
     <Compile Include="IClientCallBack.cs" />
     <Compile Include="IKdcService.cs" />
+    <Compile Include="CMd5hash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

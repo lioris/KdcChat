@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         Title="MainWin" Height="450" Width="800">
     <Grid>
-        <Button x:Name="startChatBtn" Content="start chat" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Margin="36,59,0,0" Click="Button_Click"/>
+        <Button x:Name="startChatBtn" Content="start chat" VerticalAlignment="Top" Margin="36,59,682.333,0" Click="Button_Click"/>
         <TextBox x:Name="partnerUsernameText" HorizontalAlignment="Left" Height="23" Margin="162,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="partner username" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,10,0,0"/>
 

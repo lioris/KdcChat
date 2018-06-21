@@ -71,36 +71,17 @@ namespace client
             sessionPrm.client1UserName = user.Name;
             sessionPrm.client2UserName = partnerUsernameInvoked;
             CSessionKeyResponse sessionRespons = proxy.GetSessionKey(sessionPrm);
-
+            if(sessionRespons == null)
+            {
+                //report error
+                return;
+            }
             byte[] sessionKey = CAes.SimpleDecryptWithPassword(sessionRespons.m_sessionKeyA, user.PassWord);
             byte[] sessionKeyPartner = CAes.SimpleDecryptWithPassword(sessionRespons.m_sessionKeyB, user.PassWord);
-            byte[] sessionKeyPartner2 = CAes.SimpleDecryptWithPassword(sessionKeyPartner, "22345678912345");
-            // try to log in to the server
-            //User userData = proxy.LogInApp(partnerUsernameInvoked);
-
-
-            // parse the result
-            //if (userData == null)
-            //{
-            //    Application.Current.Resources[Constants.CURRENT_USER] = null;
-            //}
-            //else
-            //{
-            //    string retDecUserName = CAes.SimpleDecryptWithPassword(userData.Name, passwordInvoked);
-            //    string retDecPassword = CAes.SimpleDecryptWithPassword(userData.PassWord, passwordInvoked);
-            //    if (retDecUserName == usernameInvoked && retDecPassword == passwordInvoked)
-            //    {
-            //        userData.Name = retDecUserName;
-            //        userData.PassWord = retDecPassword;
-            //        Application.Current.Resources[Constants.CURRENT_USER] = userData;
-            //    }
-            //}
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            partnerUsernameText.AppendText("lior");
-
             if (!getSessionKeyWorker.IsBusy)
             {
                 getSessionKeyWorker.RunWorkerAsync();

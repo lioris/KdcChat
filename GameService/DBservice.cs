@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using LinqToSql;
 using System.Threading;
 
-namespace DBservice
+namespace KdcService
 {
 
     public class DBservice
@@ -84,7 +84,18 @@ namespace DBservice
 
         public User getUserByName(string name)
         {
-            throw new NotImplementedException();
+            try
+            {
+                User exsistUser = dbContext.Users.Single(user => user.Name == name);
+
+                Console.WriteLine("user with name " + name + " is exsists");
+                return exsistUser;
+            }
+            catch
+            {
+                Console.WriteLine("user with name " + name + " not exsists");
+                return null;
+            }
         }
         
 

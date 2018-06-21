@@ -10,13 +10,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+
 namespace KdcService
 {
     //[ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class KdcService : IKdcService
     {
         public static Dictionary<string, IClientCallBack> user_list = new Dictionary<string, IClientCallBack>();
-        //DBservice m_DBservice;
+        DBservice m_DBservice = new DBservice();
 
         KdcService()
         {
@@ -24,13 +25,28 @@ namespace KdcService
 
         public CSessionKeyResponse GetSessionKey(CSessionParams sessionParams)
         {
-            String password1 = "12345678912345";
-            String password2 = "22345678912345";
+
+            User retUser1FromDB = m_DBservice.getUserByName(sessionParams.client1UserName);
+            User retUser2FromDB = m_DBservice.getUserByName(sessionParams.client2UserName);
+
+            if(retUser1FromDB == null || retUser2FromDB == null)
+            {
+                if(retUser1FromDB == null)
+                {
+                    Console.Write(sessionParams.client1UserName + "not exist in DB");
+                }
+                if (retUser2FromDB == null)
+                {
+                    Console.Write(sessionParams.client2UserName + "not exist in DB");
+                }
+                return null;
+            }
+
             byte[] key = common.CAes.NewKey();
 
-            byte[] keyB = common.CAes.SimpleEncryptWithPassword(key, password2);
-            byte[] keyA = common.CAes.SimpleEncryptWithPassword(key, password1);
-            byte[] keyAB = common.CAes.SimpleEncryptWithPassword(keyB, password1);
+            byte[] keyB = common.CAes.SimpleEncryptWithPassword(key, retUser2FromDB.PassWord);
+            byte[] keyA = common.CAes.SimpleEncryptWithPassword(key, retUser1FromDB.PassWord);
+            byte[] keyAB = common.CAes.SimpleEncryptWithPassword(keyB, retUser1FromDB.PassWord);
 
             CSessionKeyResponse retVal = new CSessionKeyResponse();
             retVal.m_sessionKeyA = keyA;
@@ -48,28 +64,18 @@ namespace KdcService
 
             Console.WriteLine("LOGIN: NAME {0} ", userName);
 
-            String password1 = "12345678912345";
-            //String password2 = "12345678912345";
             User msgKdcToClientLoggin = new User();
 
-            msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, password1);
-            msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(password1, password1);
+            //msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, password1);
+            //msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(password1, password1);
 
+            User retUserFromDB = m_DBservice.getUserByName(userName);
+            if(retUserFromDB != null)
+            {
+                msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, retUserFromDB.PassWord);
+                msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(retUserFromDB.PassWord, retUserFromDB.PassWord);
+            }
             return msgKdcToClientLoggin;
-
-            //IDbService DBproxy = DBchannel.CreateChannel();
-            //User user = DBproxy.login(userName, Password);
-
-            //if (user != null)
-            //{
-            //    Console.WriteLine("ADD TO USER LIST");
-            //    user_list.Add(userName, OperationContext.Current.GetCallbackChannel<IClientCallBack>());
-            //    return user;
-            //}
-            //else
-            //    return null;
-
-
         }
 
         public void LogOutApp(string name)
