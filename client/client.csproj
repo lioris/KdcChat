@@ -62,7 +62,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="ChatWindow.xaml.cs">
+    <Compile Include="UI\ChatWindow.xaml.cs">
       <DependentUpon>ChatWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="UI\App.xaml.cs">
@@ -112,7 +112,7 @@
     <Resource Include="imgs\players\emptyPlayer.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ChatWindow.xaml">
+    <Page Include="UI\ChatWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
