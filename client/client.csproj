@@ -68,6 +68,7 @@
     </Compile>
     <Compile Include="resources\clientAllData.cs" />
     <Compile Include="ClientCallBack.cs" />
+    <Compile Include="FtpProxy.cs" />
     <Compile Include="MainWin.xaml.cs">
       <DependentUpon>MainWin.xaml</DependentUpon>
     </Compile>
