@@ -58,25 +58,25 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <ApplicationDefinition Include="App.xaml">
+    <ApplicationDefinition Include="UI\App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="App.xaml.cs">
+    <Compile Include="UI\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="resources\clientAllData.cs" />
     <Compile Include="ClientCallBack.cs" />
-    <Compile Include="FtpProxy.cs" />
-    <Compile Include="MainWin.xaml.cs">
+    <Compile Include="Proxys\FtpProxy.cs" />
+    <Compile Include="UI\MainWin.xaml.cs">
       <DependentUpon>MainWin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Proxy.cs" />
+    <Compile Include="Proxys\Proxy.cs" />
     <Compile Include="resources\session.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="LogIn.xaml.cs">
+    <Compile Include="UI\LogIn.xaml.cs">
       <DependentUpon>LogIn.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -109,72 +109,11 @@
     <Resource Include="imgs\players\emptyPlayer.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Resource Include="imgs\TableBackGround.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imgs\cards\cardFliepd.png" />
-    <Resource Include="imgs\cards\cl1.gif" />
-    <Resource Include="imgs\cards\cl10.gif" />
-    <Resource Include="imgs\cards\cl2.gif" />
-    <Resource Include="imgs\cards\cl3.gif" />
-    <Resource Include="imgs\cards\cl4.gif" />
-    <Resource Include="imgs\cards\cl5.gif" />
-    <Resource Include="imgs\cards\cl6.gif" />
-    <Resource Include="imgs\cards\cl7.gif" />
-    <Resource Include="imgs\cards\cl8.gif" />
-    <Resource Include="imgs\cards\cl9.gif" />
-    <Resource Include="imgs\cards\cl11.gif" />
-    <Resource Include="imgs\cards\cl13.gif" />
-    <Resource Include="imgs\cards\cl12.gif" />
-    <Resource Include="imgs\cards\di1.gif" />
-    <Resource Include="imgs\cards\di10.gif" />
-    <Resource Include="imgs\cards\di2.gif" />
-    <Resource Include="imgs\cards\di3.gif" />
-    <Resource Include="imgs\cards\di4.gif" />
-    <Resource Include="imgs\cards\di5.gif" />
-    <Resource Include="imgs\cards\di6.gif" />
-    <Resource Include="imgs\cards\di7.gif" />
-    <Resource Include="imgs\cards\di8.gif" />
-    <Resource Include="imgs\cards\di9.gif" />
-    <Resource Include="imgs\cards\di11.gif" />
-    <Resource Include="imgs\cards\di13.gif" />
-    <Resource Include="imgs\cards\di12.gif" />
-    <Resource Include="imgs\cards\he1.gif" />
-    <Resource Include="imgs\cards\he10.gif" />
-    <Resource Include="imgs\cards\he2.gif" />
-    <Resource Include="imgs\cards\he3.gif" />
-    <Resource Include="imgs\cards\he4.gif" />
-    <Resource Include="imgs\cards\he5.gif" />
-    <Resource Include="imgs\cards\he6.gif" />
-    <Resource Include="imgs\cards\he7.gif" />
-    <Resource Include="imgs\cards\he8.gif" />
-    <Resource Include="imgs\cards\he9.gif" />
-    <Resource Include="imgs\cards\he11.gif" />
-    <Resource Include="imgs\cards\he13.gif" />
-    <Resource Include="imgs\cards\he12.gif" />
-    <Resource Include="imgs\cards\sp1.gif" />
-    <Resource Include="imgs\cards\sp10.gif" />
-    <Resource Include="imgs\cards\sp2.gif" />
-    <Resource Include="imgs\cards\sp3.gif" />
-    <Resource Include="imgs\cards\sp4.gif" />
-    <Resource Include="imgs\cards\sp5.gif" />
-    <Resource Include="imgs\cards\sp6.gif" />
-    <Resource Include="imgs\cards\sp7.gif" />
-    <Resource Include="imgs\cards\sp8.gif" />
-    <Resource Include="imgs\cards\sp9.gif" />
-    <Resource Include="imgs\cards\sp11.gif" />
-    <Resource Include="imgs\cards\sp13.gif" />
-    <Resource Include="imgs\cards\sp12.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Resource Include="imgs\dealerChip.gif" />
-  </ItemGroup>
-  <ItemGroup>
-    <Page Include="LogIn.xaml">
+    <Page Include="UI\LogIn.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainWin.xaml">
+    <Page Include="UI\MainWin.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
