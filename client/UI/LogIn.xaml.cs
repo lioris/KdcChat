@@ -53,7 +53,7 @@ namespace client
 
         private void setDisable()
         {
-            txtPassWord.IsReadOnly = true;
+            //txtPassWord.IsReadOnly = true;
             txtUserName.IsReadOnly = true; 
 
             btnLogIn.IsEnabled = false;
@@ -63,7 +63,7 @@ namespace client
 
         private void setEnable()
         {
-            txtPassWord.IsReadOnly = false;
+            //txtPassWord.IsReadOnly = false;
             txtUserName.IsReadOnly = false; 
 
             btnLogIn.IsEnabled = true;
@@ -89,7 +89,7 @@ namespace client
             Dispatcher.BeginInvoke(new Action(delegate
             {
                 usernameInvoked = txtUserName.Text;
-                passwordInvoked = txtPassWord.Text;
+                passwordInvoked = txtPassWord.Password.ToString();
             }));
 
 
@@ -127,13 +127,13 @@ namespace client
 
             if (user != null)
             {
-                MessageBox.Show("conected with user " + user.Name + "and your id is" + user.ID);
+                MessageBox.Show("conected succesfully");
                 ClientCallBack.Instance.addWindow(Constants.MAIN_WINDOW, new MainWin()).Show();
                 ClientCallBack.Instance.CloseWindow(Constants.LOGIN_WINDOW);
             }
             else
             {
-                MessageBox.Show("Wrong user name = "+ txtUserName.Text + " or password = " + txtPassWord.Text +  " , try again!");
+                MessageBox.Show("Wrong user name = "+ txtUserName.Text + " or password = " + txtPassWord.Password.ToString() +  " , try again!");
                 this.setEnable();
             }
         }
@@ -158,7 +158,7 @@ namespace client
             Dispatcher.BeginInvoke(new Action(delegate
             {
                 usernameInvoked = txtUserName.Text;
-                passwordInvoked = txtPassWord.Text;
+                passwordInvoked = txtPassWord.Password.ToString();
             }));
 
 

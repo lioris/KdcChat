@@ -6,10 +6,10 @@
         <Label Content="Log In" Margin="234,50,218,0" Width="65" FontSize="18" VerticalAlignment="Top" HorizontalAlignment="Center"/>
         <Label Content="User Name" HorizontalAlignment="Left" Margin="40,93,0,0" VerticalAlignment="Top" FontSize="16"/>
         <Label Content="PassWord" HorizontalAlignment="Left" Margin="40,159,0,0" VerticalAlignment="Top" FontSize="16"/>
-        <TextBox Name="txtPassWord" HorizontalAlignment="Left" Height="23" Margin="179,167,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16" />
         <TextBox Name="txtUserName" HorizontalAlignment="Left" Height="23" Margin="179,101,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" FontSize="16" />
         <Button Name="btnLogIn" Content="LogIn" HorizontalAlignment="Left" Margin="224,236,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="btnLogIn_Click"/>
         <Button x:Name="btnRegister" Content="Regsiter" HorizontalAlignment="Left" Margin="224,276,0,0" VerticalAlignment="Top" Width="75" FontSize="16" Click="btnRegister_Click"/>
+        <PasswordBox x:Name="txtPassWord" HorizontalAlignment="Left" Margin="179,168,0,0" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.511,-0.212" Height="22"/>
 
     </Grid>
 </Window>
