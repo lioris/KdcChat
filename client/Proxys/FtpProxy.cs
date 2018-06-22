@@ -1,4 +1,5 @@
-﻿using Contracts;
+﻿using client.CallBacks;
+using Contracts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace client
 {
     class FtpProxy
     {
-        private ChannelFactory<IFtpService> channel;
+        private DuplexChannelFactory<IFtpService> channel;
         private IFtpService proxy;
         #region Singelton
         private static FtpProxy _instance;
@@ -18,7 +19,7 @@ namespace client
         private FtpProxy()
         {
             // creat a channel to comunicate with the game server
-            channel = new ChannelFactory<IFtpService>("FtpServiceEndpoint");
+            channel = new DuplexChannelFactory<IFtpService>(ClientFtpCallBack.Instance, "FtpServiceEndpoint");
             proxy = channel.CreateChannel();
         }
 

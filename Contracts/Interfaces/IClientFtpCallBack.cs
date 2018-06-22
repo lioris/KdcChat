@@ -10,6 +10,6 @@ namespace Contracts
     public interface IClientFtpCallBack
     {
         [OperationContract(IsOneWay = true)]
-        void printHello(string massage);
+        void printHelloFtp(string massage);
     }
 }

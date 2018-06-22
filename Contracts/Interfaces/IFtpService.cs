@@ -2,8 +2,7 @@
 
 namespace Contracts
 {
-    //[ServiceContract(CallbackContract = typeof(IClientCallBack))]
-    [ServiceContract]
+    [ServiceContract(CallbackContract = typeof(IClientFtpCallBack))]
     public interface IFtpService
     {
         [OperationContract]

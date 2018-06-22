@@ -9,9 +9,29 @@ namespace client.CallBacks
 {
     class ClientFtpCallBack : IClientFtpCallBack
     {
-        public void printHello(string massage)
+        #region Singelton
+        private static ClientFtpCallBack _instance;
+
+        private ClientFtpCallBack()  {
+
+        }
+
+        public static ClientFtpCallBack Instance
         {
-            throw new NotImplementedException();
+            get
+            {
+                if (_instance == null)
+                    _instance = new ClientFtpCallBack();
+
+                return _instance;
+            }
+        }
+        #endregion
+
+
+        public void printHelloFtp(string massage)
+        {
+            Console.WriteLine("lior");
         }
     }
 }
