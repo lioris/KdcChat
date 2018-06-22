@@ -66,16 +66,19 @@ namespace KdcService
 
             User msgKdcToClientLoggin = null;
 
+
             //msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, password1);
             //msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(password1, password1);
 
             User retUserFromDB = m_DBservice.getUserByName(userName);
             if (retUserFromDB != null)
             {
-                msgKdcToClientLoggin = new User();
                 byte[] key = common.CAes.NewKey();
+                string keyString = System.Text.Encoding.UTF8.GetString(key);
+                msgKdcToClientLoggin = new User();
+
                 msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, retUserFromDB.PassWord);
-                msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(retUserFromDB.PassWord, retUserFromDB.PassWord);
+                msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(keyString, retUserFromDB.PassWord);
                 user_list.Add(userName, OperationContext.Current.GetCallbackChannel<IClientKdcCallBack>());
                 sendNewUserToAllClients(userName, 1000);
             }
