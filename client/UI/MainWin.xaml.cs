@@ -41,8 +41,8 @@ namespace client
             //if (user != null)
             //{
             //    MessageBox.Show("conected with user " + user.Name + "and your id is" + user.ID);
-            //    ClientCallBack.Instance.addWindow(Constants.MAIN_WINDOW, new MainWin()).Show();
-            //    ClientCallBack.Instance.CloseWindow(Constants.LOGIN_WINDOW);
+            //    ClientKdcCallBack.Instance.addWindow(Constants.MAIN_WINDOW, new MainWin()).Show();
+            //    ClientKdcCallBack.Instance.CloseWindow(Constants.LOGIN_WINDOW);
             //}
             //else
             //{

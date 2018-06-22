@@ -16,7 +16,7 @@ namespace KdcService
     //[ServiceBehavior(InstanceContextMode = InstanceContextMode.PerSession)]
     public class KdcService : IKdcService
     {
-        public static Dictionary<string, IClientCallBack> user_list = new Dictionary<string, IClientCallBack>();
+        public static Dictionary<string, IClientKdcCallBack> user_list = new Dictionary<string, IClientKdcCallBack>();
         DBservice m_DBservice = new DBservice();
 
         KdcService()

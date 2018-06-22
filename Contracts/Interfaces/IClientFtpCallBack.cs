@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace Contracts
 {
-    [ServiceContract]
-    public interface IClientCallBack
+    public interface IClientFtpCallBack
     {
-
         [OperationContract(IsOneWay = true)]
         void printHello(string massage);
     }

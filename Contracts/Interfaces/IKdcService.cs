@@ -10,7 +10,7 @@ using common;
 
 namespace Contracts
 {
-    [ServiceContract(CallbackContract = typeof(IClientCallBack))]
+    [ServiceContract(CallbackContract = typeof(IClientKdcCallBack))]
     public interface IKdcService
     {
         [OperationContract]

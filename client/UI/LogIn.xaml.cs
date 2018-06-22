@@ -20,6 +20,7 @@ using LinqToSql;
 using System.Threading;
 using common;
 using System.Security.Cryptography;
+using client.resources;
 
 namespace client
 {
@@ -36,7 +37,7 @@ namespace client
             InitializeComponent();
 
             //register to callback singeltone
-            ClientCallBack.Instance.addWindow(Constants.LOGIN_WINDOW, this);
+            WindowsMgr.Instance.addWindow(Constants.LOGIN_WINDOW, this);
 
             //if ((Process.GetProcessesByName("GameHost")).Length == 0)
             //    Process.Start("D:\\pokerproj\\MyGame\\GameHost\\bin\\Debug\\GameHost.exe");
@@ -128,8 +129,8 @@ namespace client
             if (user != null)
             {
                 MessageBox.Show("conected succesfully");
-                ClientCallBack.Instance.addWindow(Constants.MAIN_WINDOW, new MainWin()).Show();
-                ClientCallBack.Instance.CloseWindow(Constants.LOGIN_WINDOW);
+                WindowsMgr.Instance.addWindow(Constants.MAIN_WINDOW, new MainWin()).Show();
+                WindowsMgr.Instance.CloseWindow(Constants.LOGIN_WINDOW);
             }
             else
             {

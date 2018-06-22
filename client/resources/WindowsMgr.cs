@@ -1,46 +1,42 @@
-﻿using Contracts;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 
-namespace client
+namespace client.resources
 {
-    class ClientCallBack : IClientCallBack
+    class WindowsMgr
     {
         Dictionary<string, Window> list = new Dictionary<string, Window>();
- 
+
         #region Singelton
-        private static ClientCallBack _instance;
-        
-        private ClientCallBack(){
+        private static WindowsMgr _instance;
+
+        private WindowsMgr()
+        {
 
         }
 
-        public static ClientCallBack Instance
+        public static WindowsMgr Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = new ClientCallBack();
+                    _instance = new WindowsMgr();
 
                 return _instance;
             }
         }
         #endregion
 
-        // mange windows
-
         public Window addWindow(string name, Window w)
         {
-            if (list.ContainsKey(name) )
+            if (list.ContainsKey(name))
                 list[name] = w;
             else
-                list.Add(name,w);
+                list.Add(name, w);
 
             return w;
         }
@@ -61,13 +57,5 @@ namespace client
         {
             return list[p];
         }
-
-        public void printHello(string massage)
-        {
-            Console.WriteLine("lior");//throw new NotImplementedException();
-        }
     }
 }
-
-
-

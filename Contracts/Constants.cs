@@ -8,12 +8,7 @@ namespace Contracts
 {
     public static class Constants
     {
-        public static int MAX_TABLE_SEATS = 6;
-        public static string DEFULT_PIC_PLAYER = "emptyPlayer.jpg";
-        public static string DEFULT_PIC_PLAYER_PATH = "imgs/players/seat";
-
-        public static string DEFULT_PIC_CARD = "cardFliepd.png";
-        public static string DEFULT_PIC_CARD_PATH = "imgs/cards/";
+//        public static string DEFULT_PIC_PLAYER_PATH = "imgs/players/seat";
 
         public static string USER_NAME = "userName";
         public static string PASSWORD = "password";
@@ -26,13 +21,6 @@ namespace Contracts
         //windows names
         public const string LOGIN_WINDOW = "login";
         public const string MAIN_WINDOW = "main_window";
-
-
-        public const int FLOP1 = 0;
-        public const int FLOP2 = 1;
-        public const int FLOP3 = 2;
-        public const int TERN = 3;
-        public const int RIVER = 4;
         
     }
 }

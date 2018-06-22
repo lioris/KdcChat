@@ -17,7 +17,7 @@ namespace client
 
         private Proxy()   {
             // creat a channel to comunicate with the game server
-            channel =  new DuplexChannelFactory<IKdcService>(ClientCallBack.Instance, "KdcServiceEndpoint");
+            channel =  new DuplexChannelFactory<IKdcService>(ClientKdcCallBack.Instance, "KdcServiceEndpoint");
             proxy = channel.CreateChannel();
         }
 

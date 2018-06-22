@@ -62,6 +62,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="CallBacks\ClientFtpCallBack.cs" />
+    <Compile Include="resources\WindowsMgr.cs" />
     <Compile Include="UI\ChatWindow.xaml.cs">
       <DependentUpon>ChatWindow.xaml</DependentUpon>
     </Compile>
@@ -70,7 +72,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="resources\clientAllData.cs" />
-    <Compile Include="ClientCallBack.cs" />
+    <Compile Include="CallBacks\ClientKdcCallBack.cs" />
     <Compile Include="Proxys\FtpProxy.cs" />
     <Compile Include="UI\MainWin.xaml.cs">
       <DependentUpon>MainWin.xaml</DependentUpon>

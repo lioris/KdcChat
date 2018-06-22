@@ -45,9 +45,10 @@
     <Compile Include="Constants.cs" />
     <Compile Include="CSessionKeyResponse.cs" />
     <Compile Include="CSessionParams.cs" />
-    <Compile Include="IClientCallBack.cs" />
-    <Compile Include="IFtpService.cs" />
-    <Compile Include="IKdcService.cs" />
+    <Compile Include="Interfaces\IClientFtpCallBack.cs" />
+    <Compile Include="Interfaces\IClientKdcCallBack.cs" />
+    <Compile Include="Interfaces\IFtpService.cs" />
+    <Compile Include="Interfaces\IKdcService.cs" />
     <Compile Include="CMd5hash.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
