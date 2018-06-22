@@ -80,13 +80,12 @@ namespace client
             byte[] sessionKeyPartner = CAes.SimpleDecryptWithPassword(sessionRespons.m_sessionKeyB, user.PassWord);
         }
 
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void start_chat_Button_Click(object sender, RoutedEventArgs e)
         {
             if (!getSessionKeyWorker.IsBusy)
             {
                 getSessionKeyWorker.RunWorkerAsync();
             }
-
         }
     }
 }
