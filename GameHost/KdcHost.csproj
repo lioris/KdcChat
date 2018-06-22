@@ -34,6 +34,7 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +44,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBservice.cs" />
+    <Compile Include="KdcService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -54,9 +57,9 @@
       <Project>{ee54618b-dac7-41b9-acb5-9c2d08d46c57}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\GameService\KdcService.csproj">
-      <Project>{0ee4ddcf-07b1-4fda-991a-f4b0ae50ee8d}</Project>
-      <Name>KdcService</Name>
+    <ProjectReference Include="..\LinqToSql\LinqToSql.csproj">
+      <Project>{c6010f7e-06e9-41d6-8baa-0e69412cc047}</Project>
+      <Name>LinqToSql</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
