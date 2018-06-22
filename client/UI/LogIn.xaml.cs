@@ -96,13 +96,13 @@ namespace client
 
             Thread.Sleep(100);
             // try to log in to the server
-            clientAllData.Instance.setMyUsername(usernameInvoked);
+            ClientAllData.Instance.setMyUsername(usernameInvoked);
             User userData = proxy.LogInApp(usernameInvoked);
 
             // parse the result
             if (userData == null)
             {
-                Application.Current.Resources[Constants.CURRENT_USER] = null;
+                ClientAllData.Instance.setMyClient(null);
             }
             else
             {
@@ -118,14 +118,14 @@ namespace client
                 {
                     userData.Name = retDecUserName;
                     userData.PassWord = retDecPassword;
-                    Application.Current.Resources[Constants.CURRENT_USER] = userData;
+                    ClientAllData.Instance.setMyClient(userData);
                 }
             }
         }
 
         private void login_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            User user = (User)Application.Current.Resources[Constants.CURRENT_USER];
+            User user = ClientAllData.Instance.getMyClient();
 
             if (user != null)
             {
@@ -168,14 +168,19 @@ namespace client
             User user = proxy.RegisterApp(usernameInvoked, passwordInvoked);
 
             if (user == null)
-                Application.Current.Resources[Constants.CURRENT_USER] = null;
+            {
+                ClientAllData.Instance.setMyClient(null);
+            }
+
             else
-                Application.Current.Resources[Constants.CURRENT_USER] = user;
+            {
+                ClientAllData.Instance.setMyClient(user);
+            }
         }
 
         private void register_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            User user = (User)Application.Current.Resources[Constants.CURRENT_USER];
+            User user = ClientAllData.Instance.getMyClient();
 
             if (user != null)
             {

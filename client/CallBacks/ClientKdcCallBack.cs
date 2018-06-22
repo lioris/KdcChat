@@ -46,9 +46,9 @@ namespace client
 
             allUsers.ForEach(delegate (String name)
             {
-                if (clientAllData.Instance.getMyUsername() != name)
+                if (ClientAllData.Instance.getMyUsername() != name)
                 {
-                    clientAllData.Instance.addUserToPartnerUsers(name);
+                    ClientAllData.Instance.addUserToPartnerUsers(name);
                     nameList.Add(name);
                 }
             });
@@ -67,7 +67,7 @@ namespace client
 
         public void startSession(string userName, int port)
         {
-            if (clientAllData.Instance.getMyUsername() != userName)
+            if (ClientAllData.Instance.getMyUsername() != userName)
             {
                 //clientAllData.Instance.addUserToPartnerUsers(massage);
                 //session newSession = new session(clientAllData.Instance.getMyPort(), port);

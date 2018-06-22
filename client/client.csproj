@@ -72,7 +72,7 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="resources\clientAllData.cs" />
+    <Compile Include="resources\ClientAllData.cs" />
     <Compile Include="CallBacks\ClientKdcCallBack.cs" />
     <Compile Include="Proxys\FtpProxy.cs" />
     <Compile Include="UI\MainWin.xaml.cs">

@@ -40,13 +40,13 @@ namespace client
 
             proxy = KdcProxy.Instance.GetProxy();
             List<string> allUsers = proxy.getAllConnectedUsers();
-            allUsers.Remove(clientAllData.Instance.getMyUsername());
+            allUsers.Remove(ClientAllData.Instance.getMyUsername());
             addUserToPartnerUsers(allUsers);
         }
 
         private void getSessionKeyWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //User user = (User)Application.Current.Resources[Constants.CURRENT_USER];
+            //User user = (User)Application.Current.Resources[Constants.CURRENT_USER]; -- need to change to clientalldata
 
             //if (user != null)
             //{
@@ -76,18 +76,18 @@ namespace client
 
             Thread.Sleep(100);
 
-            User user = (User)Application.Current.Resources[Constants.CURRENT_USER];
+            User user = ClientAllData.Instance.getMyClient();
             CSessionParams sessionPrm = new CSessionParams();
-            sessionPrm.client1UserName = user.Name;
+            sessionPrm.client1UserName = user.Name; 
             sessionPrm.client2UserName = partnerUsernameInvoked;
-            CSessionKeyResponse sessionRespons = proxy.GetSessionKey(sessionPrm);
+            CSessionKeyResponse sessionRespons = proxy.GetSessionKey(sessionPrm); // blocking
             if(sessionRespons == null)
             {
                 //report error
                 return;
             }
             byte[] sessionKey = CAes.SimpleDecryptWithPassword(sessionRespons.m_sessionKeyA, user.PassWord);
-            byte[] sessionKeyPartner = CAes.SimpleDecryptWithPassword(sessionRespons.m_sessionKeyB, user.PassWord);
+            byte[] sessionPartnerData = CAes.SimpleDecryptWithPassword(sessionRespons.m_sessionKeyB, user.PassWord); 
         }
 
         private void start_chat_Button_Click(object sender, RoutedEventArgs e)
@@ -105,6 +105,11 @@ namespace client
             {
                 connectedUserComboBox.Items.Add(name);
             });
+        }
+
+        private void ftpConnectButton_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }
