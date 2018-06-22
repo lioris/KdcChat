@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FtpService.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -59,9 +58,9 @@
       <Project>{ee54618b-dac7-41b9-acb5-9c2d08d46c57}</Project>
       <Name>Contracts</Name>
     </ProjectReference>
-    <ProjectReference Include="..\LinqToSql\LinqToSql.csproj">
-      <Project>{c6010f7e-06e9-41d6-8baa-0e69412cc047}</Project>
-      <Name>LinqToSql</Name>
+    <ProjectReference Include="..\ftpService\ftpService.csproj">
+      <Project>{e877be29-4695-48ae-8feb-ef53f7114542}</Project>
+      <Name>ftpService</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
