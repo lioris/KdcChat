@@ -83,7 +83,7 @@ namespace client
 
         private void login_worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            IKdcService proxy = Proxy.Instance.GetProxy();
+            IKdcService proxy = KdcProxy.Instance.GetProxy();
             string usernameInvoked = string.Empty;
             string passwordInvoked = string.Empty;
 
@@ -152,7 +152,7 @@ namespace client
 
         private void register_worker_DoWork(object sender, DoWorkEventArgs e)
         {
-            IKdcService proxy = Proxy.Instance.GetProxy();
+            IKdcService proxy = KdcProxy.Instance.GetProxy();
             string usernameInvoked = string.Empty;
             string passwordInvoked = string.Empty;
 

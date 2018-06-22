@@ -53,7 +53,7 @@ namespace client
 
         private void getSessionKeyWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            IKdcService proxy = Proxy.Instance.GetProxy();
+            IKdcService proxy = KdcProxy.Instance.GetProxy();
             string partnerUsernameInvoked = string.Empty;
             
 

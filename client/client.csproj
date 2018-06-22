@@ -77,7 +77,7 @@
     <Compile Include="UI\MainWin.xaml.cs">
       <DependentUpon>MainWin.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Proxys\Proxy.cs" />
+    <Compile Include="Proxys\KdcProxy.cs" />
     <Compile Include="resources\session.cs" />
   </ItemGroup>
   <ItemGroup>

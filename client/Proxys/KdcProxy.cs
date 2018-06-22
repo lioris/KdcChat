@@ -8,25 +8,25 @@ using System.Threading.Tasks;
 
 namespace client
 {
-    class Proxy
+    class KdcProxy
     {
         private DuplexChannelFactory<IKdcService> channel;
         private IKdcService proxy;
         #region Singelton
-        private static Proxy _instance;
+        private static KdcProxy _instance;
 
-        private Proxy()   {
+        private KdcProxy()   {
             // creat a channel to comunicate with the game server
             channel =  new DuplexChannelFactory<IKdcService>(ClientKdcCallBack.Instance, "KdcServiceEndpoint");
             proxy = channel.CreateChannel();
         }
 
-        public static Proxy Instance
+        public static KdcProxy Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = new Proxy();
+                    _instance = new KdcProxy();
 
                 return _instance;
             }
