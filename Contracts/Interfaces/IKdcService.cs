@@ -25,7 +25,10 @@ namespace Contracts
         [OperationContract]
         CSessionKeyResponse GetSessionKey(CSessionParams sessionParams);
 
-        
+        [OperationContract]
+        List<string> getAllConnectedUsers();
+
+
         //[OperationContract(IsOneWay = true)]
         //void sendMassage(int tableid, string massage);
 

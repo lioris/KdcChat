@@ -25,13 +25,23 @@ namespace client
     public partial class MainWin : Window
     {
         private readonly BackgroundWorker getSessionKeyWorker = new BackgroundWorker();
-
+        private IKdcService proxy;
         public MainWin()
         {
             InitializeComponent();
 
             getSessionKeyWorker.DoWork += getSessionKeyWorker_DoWork;
             getSessionKeyWorker.RunWorkerCompleted += getSessionKeyWorker_RunWorkerCompleted;
+
+            ClientKdcCallBack.Instance.newConnectedUserEvnt += (sender, message_contant) =>
+            {
+                Dispatcher.Invoke(() => addUserToPartnerUsers(message_contant));
+            };
+
+            proxy = KdcProxy.Instance.GetProxy();
+            List<string> allUsers = proxy.getAllConnectedUsers();
+            allUsers.Remove(clientAllData.Instance.getMyUsername());
+            addUserToPartnerUsers(allUsers);
         }
 
         private void getSessionKeyWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -53,7 +63,7 @@ namespace client
 
         private void getSessionKeyWorker_DoWork(object sender, DoWorkEventArgs e)
         {
-            IKdcService proxy = KdcProxy.Instance.GetProxy();
+            
             string partnerUsernameInvoked = string.Empty;
             
 
@@ -86,6 +96,15 @@ namespace client
             {
                 getSessionKeyWorker.RunWorkerAsync();
             }
+        }
+
+        public void addUserToPartnerUsers(List<string> usernames)
+        {
+            connectedUserComboBox.Items.Clear();
+            usernames.ForEach(delegate (String name)
+            {
+                connectedUserComboBox.Items.Add(name);
+            });
         }
     }
 }

@@ -73,11 +73,38 @@ namespace KdcService
             if (retUserFromDB != null)
             {
                 msgKdcToClientLoggin = new User();
+                byte[] key = common.CAes.NewKey();
                 msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, retUserFromDB.PassWord);
                 msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(retUserFromDB.PassWord, retUserFromDB.PassWord);
+                user_list.Add(userName, OperationContext.Current.GetCallbackChannel<IClientKdcCallBack>());
+                sendNewUserToAllClients(userName, 1000);
             }
             
             return msgKdcToClientLoggin;
+        }
+
+        public void sendNewUserToAllClients(string userName, int port)
+        {
+            List<string> nameList = new List<string>();
+            foreach (KeyValuePair<string, IClientKdcCallBack> client in user_list)
+            {
+                nameList.Add(client.Key);
+            }
+
+            foreach (KeyValuePair<string, IClientKdcCallBack> client in user_list)
+            {
+                client.Value.addNewConnectedUser(userName, nameList, port);
+            }
+        }
+
+        public List<string> getAllConnectedUsers()
+        {
+            List<string> nameList = new List<string>();
+            foreach (KeyValuePair<string, IClientKdcCallBack> client in user_list)
+            {
+                nameList.Add(client.Key);
+            }
+            return nameList;
         }
 
         public void LogOutApp(string name)

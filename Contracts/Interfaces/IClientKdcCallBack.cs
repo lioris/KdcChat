@@ -13,5 +13,11 @@ namespace Contracts
 
         [OperationContract(IsOneWay = true)]
         void printHello(string massage);
+
+        [OperationContract(IsOneWay = true)]
+        void addNewConnectedUser(string username, List<string> allUsers, int port);
+
+        [OperationContract(IsOneWay = true)]
+        void removeDisconnectedUser(string massage);
     }
 }

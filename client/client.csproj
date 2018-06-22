@@ -63,6 +63,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="CallBacks\ClientFtpCallBack.cs" />
+    <Compile Include="resources\clientChat.cs" />
     <Compile Include="resources\WindowsMgr.cs" />
     <Compile Include="UI\ChatWindow.xaml.cs">
       <DependentUpon>ChatWindow.xaml</DependentUpon>

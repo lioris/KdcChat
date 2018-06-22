@@ -7,9 +7,10 @@
         mc:Ignorable="d"
         Title="MainWin" Height="450" Width="800">
     <Grid>
-        <Button x:Name="startChatBtn" Content="start chat" VerticalAlignment="Top" Margin="36,59,682.333,0" Click="start_chat_Button_Click"/>
-        <TextBox x:Name="partnerUsernameText" HorizontalAlignment="Left" Height="23" Margin="162,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Button x:Name="startChatBtn" Content="start chat" VerticalAlignment="Top" Margin="36,156,682.333,0" Click="start_chat_Button_Click"/>
+        <TextBox x:Name="partnerUsernameText" HorizontalAlignment="Left" Height="23" Margin="157,13,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Label Content="partner username" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="36,10,0,0"/>
+        <ComboBox x:Name="connectedUserComboBox" HorizontalAlignment="Left" Margin="157,77,0,0" VerticalAlignment="Top" Width="120"/>
 
     </Grid>
 </Window>

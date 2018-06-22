@@ -96,6 +96,7 @@ namespace client
 
             Thread.Sleep(100);
             // try to log in to the server
+            clientAllData.Instance.setMyUsername(usernameInvoked);
             User userData = proxy.LogInApp(usernameInvoked);
 
             // parse the result
@@ -113,7 +114,7 @@ namespace client
 
                 string retDecUserName = CAes.SimpleDecryptWithPassword(userData.Name, passWordHash);
                 string retDecPassword = CAes.SimpleDecryptWithPassword(userData.PassWord, passWordHash);
-                if (retDecUserName == usernameInvoked && retDecPassword == passWordHash)
+                if (retDecUserName == usernameInvoked )
                 {
                     userData.Name = retDecUserName;
                     userData.PassWord = retDecPassword;

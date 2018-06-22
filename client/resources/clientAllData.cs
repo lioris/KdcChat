@@ -13,6 +13,7 @@ namespace client
         //private DuplexChannelFactory<IKdcService> channel;
         //private IKdcService proxy;
         private User m_myUser;
+        private int m_localPort;
         private List<string> m_partnerUser;
         private Dictionary<string, session> m_partnerSession;
         #region Singelton
@@ -69,5 +70,24 @@ namespace client
             return m_partnerSession[username];
         }
 
+        internal void setMyUsername(string username)
+        {
+            m_myUser.Name = username;
+        }
+
+        internal string getMyUsername()
+        {
+           return m_myUser.Name;
+        }
+
+        internal void setMyPort(int port)
+        {
+            m_localPort = port;
+        }
+
+        internal int getMyPort()
+        {
+            return m_localPort;
+        }
     }
 }
