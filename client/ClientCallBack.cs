@@ -12,8 +12,6 @@ namespace client
 {
     class ClientCallBack : IClientCallBack
     {
-        public event EventHandler<string> chat_massage;
-
         Dictionary<string, Window> list = new Dictionary<string, Window>();
  
         #region Singelton
