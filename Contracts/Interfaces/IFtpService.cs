@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using Contracts.logicClasses;
+using System.ServiceModel;
 
 namespace Contracts
 {
@@ -8,7 +9,10 @@ namespace Contracts
         [OperationContract]
         void printKoko();
 
-       
+        [OperationContract]
+        bool requstForConnectionWithSessionKey(FtpTicketRequst ftpTicketRequst); // blocking
+
+
 
     }
 }

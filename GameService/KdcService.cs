@@ -16,12 +16,13 @@ namespace KdcService
         public static Dictionary<string, UserServiceData> users_list = new Dictionary<string, UserServiceData>(); // user, key_S
 
         DBservice m_DBservice = new DBservice();
+        FtpDBservice m_FtpDBservice = new FtpDBservice();
 
         KdcService()
         {
         }
 
-        public CSessionKeyResponse GetSessionKey(CSessionParams sessionParams)
+        public CSessionKeyResponse GetSessionKeyForChatConnection(CSessionParams sessionParams)
         {
             // get users from the data base
             User retUser1FromDB = m_DBservice.getUserByName(sessionParams.client1UserName);
@@ -148,6 +149,34 @@ namespace KdcService
                 }
             }
             return retVal;
+        }
+
+        public FtpTicketResponse RequstSessionKeyForFtpConnection(FtpKeyRequst ftpKeyRequst)
+        {
+            if(!users_list.ContainsKey(ftpKeyRequst.UserName))
+            {
+                return null;
+            }
+
+            // get users from the data base
+            KdcFtpKey retKeyFromDB = m_FtpDBservice.getKdcFtpKey("KDC");
+
+            // check validity 
+            if (retKeyFromDB == null)
+            {
+                Console.Write("no key exist in DB");
+                return null;
+            }
+
+            // genrate new session key for CLIENT - FTP
+            byte[] sessiomKey = CAes.NewKey();
+
+            FtpTicketResponse ftpTicketResponse = new FtpTicketResponse();
+            ftpTicketResponse.SessionKeyClientFTPEncryptedForFTP = CAes.SimpleEncryptWithPassword(sessiomKey, retKeyFromDB.PassWord);
+            ftpTicketResponse.UserNameencryptedForFtpWithFtpKey = CAes.SimpleEncryptWithPassword(ftpKeyRequst.UserName, retKeyFromDB.PassWord); 
+            ftpTicketResponse.SessionKeyClientFTPEncryptedForClient = CAes.SimpleEncrypt(sessiomKey, users_list[ftpKeyRequst.UserName].SessionKey, users_list[ftpKeyRequst.UserName].SessionKey);
+
+            return ftpTicketResponse;
         }
 
         //public void sendMassage(int tableid, string massage)

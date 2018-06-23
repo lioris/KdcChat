@@ -1,12 +1,6 @@
 ﻿using LinqToSql;
-using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
-using common;
 using Contracts.logicClasses;
 
 namespace Contracts
@@ -14,6 +8,7 @@ namespace Contracts
     [ServiceContract(CallbackContract = typeof(IClientKdcCallBack))]
     public interface IKdcService
     {
+        //GLOBAL OPERTIONS
         [OperationContract]
         User RegisterApp(string userName, string Password);
 
@@ -23,8 +18,10 @@ namespace Contracts
         [OperationContract(IsOneWay=true)]
         void LogOutApp(string name);
 
+
+        // CHAT OPERTIONS
         [OperationContract]
-        CSessionKeyResponse GetSessionKey(CSessionParams sessionParams);
+        CSessionKeyResponse GetSessionKeyForChatConnection(CSessionParams sessionParams);
 
         [OperationContract]
         List<string> getAllConnectedUsers();
@@ -32,6 +29,10 @@ namespace Contracts
         [OperationContract]
         bool SetLoginStatus(CLogInStatus logginStatus);
 
+
+        //FTP OPERTIONS     
+        [OperationContract]
+        FtpTicketResponse RequstSessionKeyForFtpConnection(FtpKeyRequst ftpKeyRequst);
 
         //[OperationContract(IsOneWay = true)]
         //void sendMassage(int tableid, string massage);

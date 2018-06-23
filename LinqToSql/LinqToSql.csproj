@@ -55,13 +55,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="pokerDataBase.cs">
-      <DependentUpon>pokerDataBase.dbml</DependentUpon>
-    </Compile>
-    <Compile Include="pokerDataBase.designer.cs">
+    <Compile Include="KdcClientsDB.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>pokerDataBase.dbml</DependentUpon>
+      <DependentUpon>KdcClientsDB.dbml</DependentUpon>
+    </Compile>
+    <Compile Include="KdcFtpClientsDB.designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>KdcFtpClientsDB.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
@@ -72,9 +74,14 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
-    <None Include="pokerDataBase.dbml">
+    <None Include="KdcClientsDB.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
-      <LastGenOutput>pokerDataBase.designer.cs</LastGenOutput>
+      <LastGenOutput>KdcClientsDB.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="KdcFtpClientsDB.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>KdcFtpClientsDB.designer.cs</LastGenOutput>
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\Settings.settings">
@@ -84,11 +91,6 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="pokerDataBase.dbml.layout">
-      <DependentUpon>pokerDataBase.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5">
@@ -108,13 +110,30 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="PokerDataBase.mdf">
+    <Content Include="KdcClientsDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="PokerDataBase_log.ldf">
+    <Content Include="KdcClientsDB_log.ldf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>PokerDataBase.mdf</DependentUpon>
+      <DependentUpon>KdcClientsDB.mdf</DependentUpon>
     </Content>
+    <Content Include="KdcFtpKeysDB.mdf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="KdcFtpKeysDB_log.ldf">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <DependentUpon>KdcFtpKeysDB.mdf</DependentUpon>
+    </Content>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="KdcFtpClientsDB.dbml.layout">
+      <DependentUpon>KdcFtpClientsDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="KdcClientsDB.dbml.layout">
+      <DependentUpon>KdcClientsDB.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

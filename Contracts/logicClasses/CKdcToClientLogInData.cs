@@ -8,8 +8,8 @@ namespace Contracts.logicClasses
 {
     public class CKdcToClientLogInData
     {
-        public string m_username;
-        public byte[] m_kdcAsSessionKey;
+        public string m_username; // encrypted
+        public byte[] m_kdcAsSessionKey; // encrypted
         public string m_challenge;
 
         public CKdcToClientLogInData()

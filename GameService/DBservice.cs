@@ -12,7 +12,7 @@ namespace KdcService
 
     public class DBservice
     {
-        pokerDataBaseDataContext dbContext = new pokerDataBaseDataContext();
+        KdcClientsDBDataContext dbContext = new KdcClientsDBDataContext();
 
         public bool isUserExsist(string Name)
         {
@@ -96,9 +96,6 @@ namespace KdcService
                 Console.WriteLine("user with name " + name + " not exsists");
                 return null;
             }
-        }
-        
-
-        
+        }        
     }
 }

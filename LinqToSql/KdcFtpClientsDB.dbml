@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="KdcFtpKeysDB" Class="KdcFtpClientsDBDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=|DataDirectory|\KdcFtpKeysDB.mdf;Integrated Security=True" SettingsObjectName="LinqToSql.Properties.Settings" SettingsPropertyName="KdcFtpKeysDBConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.KdcFtpKeys" Member="KdcFtpKeys">
+    <Type Name="KdcFtpKey">
+      <Column Name="ID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Name" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PassWord" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

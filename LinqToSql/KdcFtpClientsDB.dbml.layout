@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="KdcFtpClientsDB">
+  <DataContextMoniker Name="/KdcFtpClientsDBDataContext" />
+  <nestedChildShapes>
+    <classShape Id="57b1fc59-7368-4daa-864c-9dedd10a3477" absoluteBounds="2, 2.125, 2, 1.3862939453125">
+      <DataClassMoniker Name="/KdcFtpClientsDBDataContext/KdcFtpKey" />
+      <nestedChildShapes>
+        <elementListCompartment Id="de583fed-be45-4530-860d-468e0445e7d6" absoluteBounds="2.015, 2.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

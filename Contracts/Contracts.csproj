@@ -52,6 +52,7 @@
     <Compile Include="Interfaces\IFtpService.cs" />
     <Compile Include="Interfaces\IKdcService.cs" />
     <Compile Include="CMd5hash.cs" />
+    <Compile Include="logicClasses\Massages.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

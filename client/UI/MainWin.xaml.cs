@@ -1,6 +1,7 @@
 ﻿using client.resources;
 using common;
 using Contracts;
+using Contracts.logicClasses;
 using LinqToSql;
 using System;
 using System.Collections.Generic;
@@ -25,24 +26,30 @@ namespace client
     /// </summary>
     public partial class MainWin : Window
     {
-        private readonly BackgroundWorker getSessionKeyWorker = new BackgroundWorker();
-        private IKdcService proxy;
+        private readonly BackgroundWorker getSessionKeyForChatWorker = new BackgroundWorker();
+        private readonly BackgroundWorker getSessionKeyForFtpWorker = new BackgroundWorker();
+        private IKdcService kdcProxy;
+        private IFtpService ftpProxy;
         public MainWin()
         {
             InitializeComponent();
 
-            getSessionKeyWorker.DoWork += getSessionKeyWorker_DoWork;
-            getSessionKeyWorker.RunWorkerCompleted += getSessionKeyWorker_RunWorkerCompleted;
+            getSessionKeyForChatWorker.DoWork += getSessionKeyWorker_DoWork;
+            getSessionKeyForChatWorker.RunWorkerCompleted += getSessionKeyWorker_RunWorkerCompleted;
+
+            getSessionKeyForFtpWorker.DoWork += getSessionKeyForFtpWorker_DoWork;
 
             ClientKdcCallBack.Instance.newConnectedUserEvnt += (sender, message_contant) =>
             {
                 Dispatcher.Invoke(() => addUserToPartnerUsers(message_contant));
             };
 
-            proxy = KdcProxy.Instance.GetProxy();
-            List<string> allUsers = proxy.getAllConnectedUsers();
+            kdcProxy = KdcProxy.Instance.GetProxy();
+            List<string> allUsers = kdcProxy.getAllConnectedUsers();
             allUsers.Remove(ClientAllData.Instance.getMyUsername());
             addUserToPartnerUsers(allUsers);
+
+            ftpProxy = FtpProxy.Instance.GetFtpProxy();
         }
 
         private void getSessionKeyWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -81,7 +88,7 @@ namespace client
             CSessionParams sessionPrm = new CSessionParams();
             sessionPrm.client1UserName = user.username; 
             sessionPrm.client2UserName = partnerUsernameInvoked;
-            CSessionKeyResponse sessionRespons = proxy.GetSessionKey(sessionPrm); // blocking
+            CSessionKeyResponse sessionRespons = kdcProxy.GetSessionKeyForChatConnection(sessionPrm); // blocking
             if(sessionRespons == null)
             {
                 //report error
@@ -93,9 +100,9 @@ namespace client
 
         private void start_chat_Button_Click(object sender, RoutedEventArgs e)
         {
-            if (!getSessionKeyWorker.IsBusy)
+            if (!getSessionKeyForChatWorker.IsBusy)
             {
-                getSessionKeyWorker.RunWorkerAsync();
+                getSessionKeyForChatWorker.RunWorkerAsync();
             }
         }
 
@@ -110,7 +117,47 @@ namespace client
 
         private void ftpConnectButton_Click(object sender, RoutedEventArgs e)
         {
+            if (!getSessionKeyForFtpWorker.IsBusy) {
+                getSessionKeyForFtpWorker.RunWorkerAsync();
+            }
+        }
 
+        // requst to connect to Ftp service
+        private void getSessionKeyForFtpWorker_DoWork(object sender, DoWorkEventArgs e)
+        {
+            clientPrivateData clientData = ClientAllData.Instance.getMyClient();
+
+            //send requst for Auth
+            FtpKeyRequst ftpKeyRequst = new FtpKeyRequst(clientData.username);
+
+            FtpTicketResponse ftpTicketResponse = kdcProxy.RequstSessionKeyForFtpConnection(ftpKeyRequst); // blocking
+
+            if (ftpTicketResponse == null)
+            {
+                return;
+            }
+
+            byte[] sessionKey = CAes.SimpleDecrypt(ftpTicketResponse.SessionKeyClientFTPEncryptedForClient, clientData.m_kdcAsSessionKey, clientData.m_kdcAsSessionKey);
+
+            FtpTicketRequst ftpTicketRequst = new FtpTicketRequst();
+            ftpTicketRequst.UserNameencryptedForFtpWithFtpKey = ftpTicketResponse.UserNameencryptedForFtpWithFtpKey;
+            ftpTicketRequst.SessionKeyClientFTPEncryptedForFTP = ftpTicketResponse.SessionKeyClientFTPEncryptedForFTP;
+            
+            ftpTicketRequst.UserNameencryptedForFtpWithSessionKey = CAes.SimpleEncrypt(clientData.username, sessionKey, sessionKey);  
+
+
+            bool isConnectionAproved = ftpProxy.requstForConnectionWithSessionKey(ftpTicketRequst); // blocking
+
+
+            if (isConnectionAproved)
+            {
+                int x = 0 ;
+                x = x + 1;
+            }
+            else
+            {
+                return;
+            }
         }
     }
 }

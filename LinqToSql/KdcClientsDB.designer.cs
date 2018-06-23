@@ -22,8 +22,8 @@ namespace LinqToSql
 	using System;
 	
 	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="PokerDataBase")]
-	public partial class pokerDataBaseDataContext : System.Data.Linq.DataContext
+	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="KdcClientsDB")]
+	public partial class KdcClientsDBDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -35,31 +35,31 @@ namespace LinqToSql
     partial void DeleteUser(User instance);
     #endregion
 		
-		public pokerDataBaseDataContext() : 
-				base(global::LinqToSql.Properties.Settings.Default.PokerDataBaseConnectionString, mappingSource)
+		public KdcClientsDBDataContext() : 
+				base(global::LinqToSql.Properties.Settings.Default.KdcClientsDBConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public pokerDataBaseDataContext(string connection) : 
+		public KdcClientsDBDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public pokerDataBaseDataContext(System.Data.IDbConnection connection) : 
+		public KdcClientsDBDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public pokerDataBaseDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public KdcClientsDBDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public pokerDataBaseDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public KdcClientsDBDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
