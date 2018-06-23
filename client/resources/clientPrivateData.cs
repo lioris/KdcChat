@@ -11,6 +11,7 @@ namespace client.resources
         public  string username;
         public byte[] m_kdcAsSessionKey;
         public bool m_loginSucccess;
+        public int m_localPort;
         public clientPrivateData()
         {
             m_kdcAsSessionKey = new byte[32];

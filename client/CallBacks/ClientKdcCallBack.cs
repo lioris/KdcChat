@@ -14,7 +14,8 @@ namespace client
     class ClientKdcCallBack : IClientKdcCallBack
     {
         public EventHandler<List<string>> newConnectedUserEvnt;
- 
+        public EventHandler<int> openSessionChatEvnt;
+
         #region Singelton
         private static ClientKdcCallBack _instance;
         
@@ -60,6 +61,16 @@ namespace client
             }
 
         }
+
+        public void startChatSession(int remotePort)
+        {
+            var evt = openSessionChatEvnt;
+            if (evt != null)
+            {
+                evt(this, remotePort);
+            }
+        }
+
         public void removeDisconnectedUser(string massage)
         {
             throw new NotImplementedException();

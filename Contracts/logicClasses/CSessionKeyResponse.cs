@@ -8,12 +8,15 @@ namespace Contracts
 {
     public class CSessionKeyResponse
     {
-        public CSessionKeyResponse()
-        {
-            m_sessionKeyA = new byte[256];
-            m_sessionKeyB = new byte[256];
-        }
+        public byte[] m_dstPort;
         public byte[] m_sessionKeyA;
         public byte[] m_sessionKeyB;
+        public CSessionKeyResponse()
+        {
+            m_sessionKeyA = new byte[128];
+            m_sessionKeyB = new byte[128];
+            m_dstPort = new byte[8];
+        }
+
     }
 }

@@ -21,14 +21,16 @@ namespace KdcService
         {
         }
 
-        public CSessionKeyResponse GetSessionKey(CSessionParams sessionParams)
+        public CSessionKeyResponse GetChatSessionParams(CSessionParams sessionParams)
         {
             // get users from the data base
             User retUser1FromDB = m_DBservice.getUserByName(sessionParams.client1UserName);
             User retUser2FromDB = m_DBservice.getUserByName(sessionParams.client2UserName);
 
+            UserServiceData connectedUser = users_list[sessionParams.client1UserName];
+
             // check validity 
-            if(retUser1FromDB == null || retUser2FromDB == null)
+            if (retUser1FromDB == null || retUser2FromDB == null || connectedUser == null)
             {
                 if(retUser1FromDB == null)
                 {
@@ -37,6 +39,10 @@ namespace KdcService
                 if (retUser2FromDB == null)
                 {
                     Console.Write(sessionParams.client2UserName + "not exist in DB");
+                }
+                if(connectedUser == null)
+                {
+                    Console.Write(sessionParams.client2UserName + "not logged in");
                 }
                 return null;
             }
@@ -52,9 +58,14 @@ namespace KdcService
             // set return value
             CSessionKeyResponse retVal = new CSessionKeyResponse();
             retVal.m_sessionKeyA = keyA;
-            retVal.m_sessionKeyB = keyAB;           
+            retVal.m_sessionKeyB = keyAB;
+
+            users_list[sessionParams.client1UserName].clientKdcCallBack.startChatSession(retUser2FromDB.ID + 1100);
+            users_list[sessionParams.client2UserName].clientKdcCallBack.startChatSession(retUser1FromDB.ID + 1100);
+
             return retVal;
         }
+
 
         public CKdcToClientLogInData LogInApp(string userName)
         {
@@ -73,11 +84,13 @@ namespace KdcService
             {
                 byte[] userSessionKey = CAes.NewKey();
                 string challenge = Path.GetRandomFileName();
-   
+                int port = 1100 + retUserFromDB.ID;
+                byte[] localPortByte = BitConverter.GetBytes(port);
 
                 msgKdcToClientLoggin.m_username = CAes.SimpleEncryptWithPassword(userName, retUserFromDB.PassWord);
                 msgKdcToClientLoggin.m_kdcAsSessionKey = CAes.SimpleEncryptWithPassword(userSessionKey, retUserFromDB.PassWord);
                 msgKdcToClientLoggin.m_challenge = CAes.SimpleEncryptWithPassword(challenge, retUserFromDB.PassWord);
+                msgKdcToClientLoggin.m_localPort = CAes.SimpleEncryptWithPassword(localPortByte, retUserFromDB.PassWord);
 
                 UserServiceData userServiceData = new UserServiceData(userSessionKey, OperationContext.Current.GetCallbackChannel<IClientKdcCallBack>());
                 userServiceData.logginChallenge = challenge;
@@ -149,6 +162,7 @@ namespace KdcService
             }
             return retVal;
         }
+
 
         //public void sendMassage(int tableid, string massage)
         //{

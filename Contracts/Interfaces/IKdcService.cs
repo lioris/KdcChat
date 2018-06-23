@@ -24,7 +24,7 @@ namespace Contracts
         void LogOutApp(string name);
 
         [OperationContract]
-        CSessionKeyResponse GetSessionKey(CSessionParams sessionParams);
+        CSessionKeyResponse GetChatSessionParams(CSessionParams sessionParams);
 
         [OperationContract]
         List<string> getAllConnectedUsers();

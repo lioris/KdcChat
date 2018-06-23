@@ -39,6 +39,13 @@ namespace client
                 Dispatcher.Invoke(() => addUserToPartnerUsers(message_contant));
             };
 
+
+            ClientKdcCallBack.Instance.openSessionChatEvnt += (sender, message_contant) =>
+            {
+                Dispatcher.Invoke(() => openChatSession(message_contant));
+            };
+
+
             proxy = KdcProxy.Instance.GetProxy();
             List<string> allUsers = proxy.getAllConnectedUsers();
             allUsers.Remove(ClientAllData.Instance.getMyUsername());
@@ -47,19 +54,6 @@ namespace client
 
         private void getSessionKeyWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //User user = (User)Application.Current.Resources[Constants.CURRENT_USER]; -- need to change to clientalldata
-
-            //if (user != null)
-            //{
-            //    MessageBox.Show("conected with user " + user.Name + "and your id is" + user.ID);
-            //    ClientKdcCallBack.Instance.addWindow(Constants.MAIN_WINDOW, new MainWin()).Show();
-            //    ClientKdcCallBack.Instance.CloseWindow(Constants.LOGIN_WINDOW);
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Wrong user name = " + txtUserName.Text + " or password = " + txtPassWord.Text + " , try again!");
-            //    this.setEnable();
-            //}
         }
 
         private void getSessionKeyWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -70,8 +64,7 @@ namespace client
 
             Dispatcher.BeginInvoke(new Action(delegate
             {
-                partnerUsernameInvoked = partnerUsernameText.Text;
-                
+                partnerUsernameInvoked = connectedUserComboBox.Text;
             }));
 
 
@@ -81,7 +74,7 @@ namespace client
             CSessionParams sessionPrm = new CSessionParams();
             sessionPrm.client1UserName = user.username; 
             sessionPrm.client2UserName = partnerUsernameInvoked;
-            CSessionKeyResponse sessionRespons = proxy.GetSessionKey(sessionPrm); // blocking
+            CSessionKeyResponse sessionRespons = proxy.GetChatSessionParams(sessionPrm); // blocking
             if(sessionRespons == null)
             {
                 //report error
@@ -97,6 +90,12 @@ namespace client
             {
                 getSessionKeyWorker.RunWorkerAsync();
             }
+        }
+
+        public void openChatSession(int remotePort)
+        {
+
+            remotePort = remotePort;
         }
 
         public void addUserToPartnerUsers(List<string> usernames)
