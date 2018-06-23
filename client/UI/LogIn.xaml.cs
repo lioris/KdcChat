@@ -111,8 +111,9 @@ namespace client
                 }
 
                 string retDecUserName = CAes.SimpleDecryptWithPassword(logginData.m_username, passWordHash);
-                byte[] retDecPassword = new byte[32];
-                retDecPassword = CAes.SimpleDecryptWithPassword(logginData.m_kdcAsSessionKey, passWordHash);
+                byte[] retDecPassword = CAes.SimpleDecryptWithPassword(logginData.m_kdcAsSessionKey, passWordHash);
+                byte[] localPortByte = CAes.SimpleDecryptWithPassword(logginData.m_localPort, passWordHash);
+                int localPort = BitConverter.ToInt32(localPortByte, 0);
 
                 if (retDecUserName == usernameInvoked )
                 {
@@ -128,6 +129,7 @@ namespace client
                         myClient.username = retDecUserName;
                         myClient.m_kdcAsSessionKey = retDecPassword;
                         myClient.m_loginSucccess = true;
+                        myClient.m_localPort = localPort;
                         looginSuccess = true;
                     }
                 }

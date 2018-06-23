@@ -9,30 +9,47 @@ namespace client.resources
 {
     public class session
     {
-        private byte[] m_sessionKye;
+        public byte[] m_sessionKey;
+        public byte[] m_remoteKey;
         clientChat myClientChat;
 
         //ThreadStart threadDelegate;
-        //Thread newThread;
+        ThreadStart threadDelegate;
+        Thread newThread;
 
         public session(int localPort, int partnerPort)
         {
-            /*myClientChat = new clientChat(localPort, partnerPort);
 
-            threadDelegate = new ThreadStart(myClientChat.sendMessage);
-            newThread = new Thread(threadDelegate);
-            newThread.Start();
-      
-            threadDelegate = new ThreadStart(myClientChat.readMessage);
-            newThread = new Thread(threadDelegate);
-            newThread.Start();*/
-
-
+            myClientChat = new clientChat(localPort, partnerPort);
         }
 
-        public void setSessionKey(byte[] sessionKey)
+        public void startReceving()
         {
-            m_sessionKye = sessionKey;
+
+            threadDelegate = new ThreadStart(myClientChat.startSessionChatRemote);
+            Thread newThread = new Thread(threadDelegate);
+            newThread.SetApartmentState(ApartmentState.STA);
+            newThread.Start();
+        }
+
+
+        public void startSending()
+        {
+
+            threadDelegate = new ThreadStart(myClientChat.startChatSessionMaster);
+            newThread = new Thread( threadDelegate);
+            newThread.SetApartmentState(ApartmentState.STA);
+            newThread.Start();
+        }
+
+        public void setSessionKey(byte[] localKey, byte[] remoteKey)
+        {
+            m_sessionKey = localKey;
+            m_remoteKey = remoteKey;
+
+            myClientChat.setSessionKey(localKey, remoteKey);
+
+
         }
     }
 }

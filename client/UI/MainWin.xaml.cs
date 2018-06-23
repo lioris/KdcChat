@@ -54,19 +54,6 @@ namespace client
 
         private void getSessionKeyWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            //User user = (User)Application.Current.Resources[Constants.CURRENT_USER]; -- need to change to clientalldata
-
-            //if (user != null)
-            //{
-            //    MessageBox.Show("conected with user " + user.Name + "and your id is" + user.ID);
-            //    ClientKdcCallBack.Instance.addWindow(Constants.MAIN_WINDOW, new MainWin()).Show();
-            //    ClientKdcCallBack.Instance.CloseWindow(Constants.LOGIN_WINDOW);
-            //}
-            //else
-            //{
-            //    MessageBox.Show("Wrong user name = " + txtUserName.Text + " or password = " + txtPassWord.Text + " , try again!");
-            //    this.setEnable();
-            //}
         }
 
         private void getSessionKeyWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -77,8 +64,7 @@ namespace client
 
             Dispatcher.BeginInvoke(new Action(delegate
             {
-                partnerUsernameInvoked = partnerUsernameText.Text;
-                
+                partnerUsernameInvoked = connectedUserComboBox.Text;
             }));
 
 
@@ -95,7 +81,10 @@ namespace client
                 return;
             }
             byte[] sessionKey = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyA, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
-            byte[] sessionPartnerData = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyB, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey); 
+            byte[] sessionPartnerData = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyB, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
+            session sessionData = ClientAllData.Instance.getSession(partnerUsernameInvoked);
+            sessionData.setSessionKey(sessionKey, sessionPartnerData);
+            sessionData.startSending();
         }
 
         private void start_chat_Button_Click(object sender, RoutedEventArgs e)
@@ -104,6 +93,23 @@ namespace client
             {
                 getSessionKeyForChatWorker.RunWorkerAsync();
             }
+        }
+
+        public void openChatSession(userPortData remoteUserData)
+        {
+            session chatSession = new session(ClientAllData.Instance.getMyClient().m_localPort, remoteUserData.port);
+            ClientAllData.Instance.addNewSession(chatSession, remoteUserData.userName);
+            if(!remoteUserData.isMaster)
+            {
+                session retChatSession = ClientAllData.Instance.getSession(remoteUserData.userName);
+                retChatSession.startReceving();
+            }
+
+        }
+
+        public void openChatWindow(chatWindowParams chatWinParams)
+        {
+
         }
 
         public void addUserToPartnerUsers(List<string> usernames)

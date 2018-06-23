@@ -11,10 +11,12 @@ namespace Contracts.logicClasses
         public string m_username; // encrypted
         public byte[] m_kdcAsSessionKey; // encrypted
         public string m_challenge;
+        public byte[] m_localPort;
 
         public CKdcToClientLogInData()
         {
-            m_kdcAsSessionKey = new byte[32];
+            //m_kdcAsSessionKey = new byte[128];
+            //m_localPort = new byte[32];
         }
     }
 }
