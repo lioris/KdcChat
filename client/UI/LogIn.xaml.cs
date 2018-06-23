@@ -21,6 +21,7 @@ using System.Threading;
 using common;
 using System.Security.Cryptography;
 using client.resources;
+using Contracts.logicClasses;
 
 namespace client
 {
@@ -83,6 +84,7 @@ namespace client
 
         private void login_worker_DoWork(object sender, DoWorkEventArgs e)
         {
+            bool looginSuccess = false;
             IKdcService proxy = KdcProxy.Instance.GetProxy();
             string usernameInvoked = string.Empty;
             string passwordInvoked = string.Empty;
@@ -97,14 +99,10 @@ namespace client
             Thread.Sleep(100);
             // try to log in to the server
             ClientAllData.Instance.setMyUsername(usernameInvoked);
-            User userData = proxy.LogInApp(usernameInvoked);
+            CKdcToClientLogInData logginData = proxy.LogInApp(usernameInvoked);
 
             // parse the result
-            if (userData == null)
-            {
-                ClientAllData.Instance.setMyClient(null);
-            }
-            else
+            if (logginData != null)
             {
                 string passWordHash = string.Empty;
                 using (MD5 md5Hash = MD5.Create())
@@ -112,22 +110,43 @@ namespace client
                     passWordHash = CMd5hash.GetMd5Hash(md5Hash, passwordInvoked);
                 }
 
-                string retDecUserName = CAes.SimpleDecryptWithPassword(userData.Name, passWordHash);
-                string retDecPassword = CAes.SimpleDecryptWithPassword(userData.PassWord, passWordHash);
+                string retDecUserName = CAes.SimpleDecryptWithPassword(logginData.m_username, passWordHash);
+                byte[] retDecPassword = new byte[32];
+                retDecPassword = CAes.SimpleDecryptWithPassword(logginData.m_kdcAsSessionKey, passWordHash);
+
                 if (retDecUserName == usernameInvoked )
                 {
-                    userData.Name = retDecUserName;
-                    userData.PassWord = retDecPassword;
-                    ClientAllData.Instance.setMyClient(userData);
+                    string retChallenge = CAes.SimpleDecryptWithPassword(logginData.m_challenge, passWordHash);
+
+                    CLogInStatus logginStatus = new CLogInStatus();
+                    logginStatus.m_username = retDecUserName;
+                    logginStatus.m_logInFail = false;
+                    logginStatus.m_challenge = CAes.SimpleEncrypt(retChallenge, retDecPassword, retDecPassword);
+                    if(proxy.SetLoginStatus(logginStatus))
+                    {
+                        clientPrivateData myClient =  ClientAllData.Instance.getMyClient();
+                        myClient.username = retDecUserName;
+                        myClient.m_kdcAsSessionKey = retDecPassword;
+                        myClient.m_loginSucccess = true;
+                        looginSuccess = true;
+                    }
                 }
+            }
+
+            if(!looginSuccess)
+            {
+                CLogInStatus logginStatus = new CLogInStatus();
+                logginStatus.m_username = usernameInvoked;
+                logginStatus.m_logInFail = true;
+                proxy.SetLoginStatus(logginStatus);
             }
         }
 
         private void login_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            User user = ClientAllData.Instance.getMyClient();
+            clientPrivateData user = ClientAllData.Instance.getMyClient();
 
-            if (user != null)
+            if (user != null && user.m_loginSucccess)
             {
                 MessageBox.Show("conected succesfully");
                 WindowsMgr.Instance.addWindow(Constants.MAIN_WINDOW, new MainWin()).Show();
@@ -135,7 +154,7 @@ namespace client
             }
             else
             {
-                MessageBox.Show("Wrong user name = "+ txtUserName.Text + " or password = " + txtPassWord.Password.ToString() +  " , try again!");
+                MessageBox.Show("Wrong user name or password try again!");
                 this.setEnable();
             }
         }
@@ -165,7 +184,7 @@ namespace client
 
 
             Thread.Sleep(100);
-            User user = proxy.RegisterApp(usernameInvoked, passwordInvoked);
+            /*User user = proxy.RegisterApp(usernameInvoked, passwordInvoked);
 
             if (user == null)
             {
@@ -175,16 +194,16 @@ namespace client
             else
             {
                 ClientAllData.Instance.setMyClient(user);
-            }
+            }*/
         }
 
         private void register_worker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
-            User user = ClientAllData.Instance.getMyClient();
+            clientPrivateData user = ClientAllData.Instance.getMyClient();
 
             if (user != null)
             {
-                MessageBox.Show("Registerd with user " + user.Name + "and your id is" + user.ID);
+                MessageBox.Show("Registerd with user " + user.username);
                 if (!logInWorker.IsBusy)
                     logInWorker.RunWorkerAsync();
             }

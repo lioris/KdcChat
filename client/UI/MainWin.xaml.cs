@@ -1,4 +1,5 @@
-﻿using common;
+﻿using client.resources;
+using common;
 using Contracts;
 using LinqToSql;
 using System;
@@ -76,9 +77,9 @@ namespace client
 
             Thread.Sleep(100);
 
-            User user = ClientAllData.Instance.getMyClient();
+            clientPrivateData user = ClientAllData.Instance.getMyClient();
             CSessionParams sessionPrm = new CSessionParams();
-            sessionPrm.client1UserName = user.Name; 
+            sessionPrm.client1UserName = user.username; 
             sessionPrm.client2UserName = partnerUsernameInvoked;
             CSessionKeyResponse sessionRespons = proxy.GetSessionKey(sessionPrm); // blocking
             if(sessionRespons == null)
@@ -86,8 +87,8 @@ namespace client
                 //report error
                 return;
             }
-            byte[] sessionKey = CAes.SimpleDecryptWithPassword(sessionRespons.m_sessionKeyA, user.PassWord);
-            byte[] sessionPartnerData = CAes.SimpleDecryptWithPassword(sessionRespons.m_sessionKeyB, user.PassWord); 
+            byte[] sessionKey = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyA, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
+            byte[] sessionPartnerData = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyB, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey); 
         }
 
         private void start_chat_Button_Click(object sender, RoutedEventArgs e)

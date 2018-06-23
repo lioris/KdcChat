@@ -11,6 +11,7 @@ namespace KdcService
     {
         IClientKdcCallBack m_clientKdcCallBack;
         byte[] m_sessionKey;
+        string m_logginChallenge;
 
         public UserServiceData(byte[] userSessionKey, IClientKdcCallBack clientKdcCallBack)
         {
@@ -28,6 +29,12 @@ namespace KdcService
         {
             get { return m_sessionKey; }
             set { m_sessionKey = value; }
+        }
+
+        public string logginChallenge
+        {
+            get { return m_logginChallenge; }
+            set { m_logginChallenge = value; }
         }
     }
 }

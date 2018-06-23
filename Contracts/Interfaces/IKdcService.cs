@@ -7,6 +7,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 using common;
+using Contracts.logicClasses;
 
 namespace Contracts
 {
@@ -17,7 +18,7 @@ namespace Contracts
         User RegisterApp(string userName, string Password);
 
         [OperationContract]
-        User LogInApp(string userName);
+        CKdcToClientLogInData LogInApp(string userName);
 
         [OperationContract(IsOneWay=true)]
         void LogOutApp(string name);
@@ -27,6 +28,9 @@ namespace Contracts
 
         [OperationContract]
         List<string> getAllConnectedUsers();
+
+        [OperationContract]
+        bool SetLoginStatus(CLogInStatus logginStatus);
 
 
         //[OperationContract(IsOneWay = true)]

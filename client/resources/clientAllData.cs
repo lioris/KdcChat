@@ -12,7 +12,7 @@ namespace client
     {
         //private DuplexChannelFactory<IKdcService> channel;
         //private IKdcService proxy;
-        private User m_myUser;
+        private clientPrivateData m_myUser;
         private int m_localPort;
         private List<string> m_partnerUser;
         private Dictionary<string, session> m_partnerSession;
@@ -21,7 +21,7 @@ namespace client
 
         private ClientAllData()
         {
-            m_myUser = new User();
+            m_myUser = new clientPrivateData();
             m_partnerUser = new List<string>();
             m_partnerSession = new Dictionary<string, session>();
         }
@@ -39,12 +39,12 @@ namespace client
         #endregion
 
 
-        internal User getMyClient()
+        internal clientPrivateData getMyClient()
         {
             return m_myUser;
         }
 
-        internal void setMyClient(User user)
+        internal void setMyClient(clientPrivateData user)
         {
             m_myUser = user;
         }
@@ -77,12 +77,12 @@ namespace client
 
         internal void setMyUsername(string username)
         {
-            m_myUser.Name = username;
+            m_myUser.username = username;
         }
 
         internal string getMyUsername()
         {
-           return m_myUser.Name;
+           return m_myUser.username;
         }
 
         internal void setMyPort(int port)

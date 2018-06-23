@@ -72,7 +72,7 @@ namespace KdcService
             }
             catch (Exception e)
             {
-                Console.WriteLine("somthing went wrong with the conecrtion");
+                Console.WriteLine("somthing went wrong with the conecrtion" + e);
                 return null;
             }
         }

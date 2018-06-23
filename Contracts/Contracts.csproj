@@ -42,9 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="CAes.cs" />
+    <Compile Include="logicClasses\CKdcToClientLogInData.cs" />
+    <Compile Include="logicClasses\CLogInStatus.cs" />
     <Compile Include="Constants.cs" />
-    <Compile Include="CSessionKeyResponse.cs" />
-    <Compile Include="CSessionParams.cs" />
+    <Compile Include="logicClasses\CSessionKeyResponse.cs" />
+    <Compile Include="logicClasses\CSessionParams.cs" />
     <Compile Include="Interfaces\IClientFtpCallBack.cs" />
     <Compile Include="Interfaces\IClientKdcCallBack.cs" />
     <Compile Include="Interfaces\IFtpService.cs" />

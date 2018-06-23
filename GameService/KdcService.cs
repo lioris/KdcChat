@@ -1,8 +1,10 @@
 ﻿using common;
 using Contracts;
+using Contracts.logicClasses;
 using LinqToSql;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.ServiceModel;
 
 
@@ -54,7 +56,7 @@ namespace KdcService
             return retVal;
         }
 
-        public User LogInApp(string userName)
+        public CKdcToClientLogInData LogInApp(string userName)
         {
             if (users_list.ContainsKey(userName))
             {
@@ -64,23 +66,26 @@ namespace KdcService
 
             Console.WriteLine("LOGIN: NAME {0} ", userName);
 
-            User msgKdcToClientLoggin = null;
-
-            //msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, password1);
-            //msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(password1, password1);
+            CKdcToClientLogInData msgKdcToClientLoggin = new CKdcToClientLogInData();
 
             User retUserFromDB = m_DBservice.getUserByName(userName);
             if (retUserFromDB != null)
             {
-                msgKdcToClientLoggin = new User();
-                byte[] userSessionKey = common.CAes.NewKey();
-                msgKdcToClientLoggin.Name = common.CAes.SimpleEncryptWithPassword(userName, retUserFromDB.PassWord);
-                msgKdcToClientLoggin.PassWord = common.CAes.SimpleEncryptWithPassword(retUserFromDB.PassWord, retUserFromDB.PassWord);
+                byte[] userSessionKey = CAes.NewKey();
+                string challenge = Path.GetRandomFileName();
+   
+
+                msgKdcToClientLoggin.m_username = CAes.SimpleEncryptWithPassword(userName, retUserFromDB.PassWord);
+                msgKdcToClientLoggin.m_kdcAsSessionKey = CAes.SimpleEncryptWithPassword(userSessionKey, retUserFromDB.PassWord);
+                msgKdcToClientLoggin.m_challenge = CAes.SimpleEncryptWithPassword(challenge, retUserFromDB.PassWord);
 
                 UserServiceData userServiceData = new UserServiceData(userSessionKey, OperationContext.Current.GetCallbackChannel<IClientKdcCallBack>());
-                
+                userServiceData.logginChallenge = challenge;
                 users_list.Add(userName, userServiceData);
-                sendNewUserToAllClients(userName, 1000);
+            }
+            else
+            {
+                msgKdcToClientLoggin = null;
             }
             
             return msgKdcToClientLoggin;
@@ -121,6 +126,28 @@ namespace KdcService
 
 
             return null;
+        }
+
+        public bool SetLoginStatus(CLogInStatus logginStatus)
+        {
+            bool retVal = false;
+            UserServiceData userData = users_list[logginStatus.m_username];
+            if(userData != null)
+            {
+                if(!logginStatus.m_logInFail)
+                {
+                    if (userData.logginChallenge == CAes.SimpleDecrypt(logginStatus.m_challenge, userData.SessionKey, userData.SessionKey))
+                    {
+                        retVal = true;
+                        sendNewUserToAllClients(logginStatus.m_username, 1000);
+                    }
+                }
+                if(!retVal)
+                {
+                    users_list.Remove(logginStatus.m_username);
+                }
+            }
+            return retVal;
         }
 
         //public void sendMassage(int tableid, string massage)
