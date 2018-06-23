@@ -18,7 +18,7 @@ namespace Contracts
         void addNewConnectedUser(string username, List<string> allUsers, int port);
 
         [OperationContract(IsOneWay = true)]
-        void startChatSession(int remotePort);
+        void startChatSession(int remotePort, string remoteUserName, bool isMaster);
 
         [OperationContract(IsOneWay = true)]
         void removeDisconnectedUser(string massage);

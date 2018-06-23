@@ -15,8 +15,8 @@ namespace Contracts.logicClasses
 
         public CKdcToClientLogInData()
         {
-            m_kdcAsSessionKey = new byte[32];
-            m_localPort = new byte[32];
+            //m_kdcAsSessionKey = new byte[128];
+            //m_localPort = new byte[32];
         }
     }
 }

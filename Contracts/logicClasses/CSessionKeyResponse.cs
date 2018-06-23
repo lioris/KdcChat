@@ -13,9 +13,6 @@ namespace Contracts
         public byte[] m_sessionKeyB;
         public CSessionKeyResponse()
         {
-            m_sessionKeyA = new byte[128];
-            m_sessionKeyB = new byte[128];
-            m_dstPort = new byte[8];
         }
 
     }

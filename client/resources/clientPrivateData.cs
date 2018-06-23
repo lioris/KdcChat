@@ -14,7 +14,7 @@ namespace client.resources
         public int m_localPort;
         public clientPrivateData()
         {
-            m_kdcAsSessionKey = new byte[32];
+            m_kdcAsSessionKey = new byte[128];
         }
     }
 }

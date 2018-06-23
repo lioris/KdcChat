@@ -27,10 +27,10 @@ namespace KdcService
             User retUser1FromDB = m_DBservice.getUserByName(sessionParams.client1UserName);
             User retUser2FromDB = m_DBservice.getUserByName(sessionParams.client2UserName);
 
-            UserServiceData connectedUser = users_list[sessionParams.client1UserName];
-
+            UserServiceData localUser = users_list[sessionParams.client1UserName];
+            UserServiceData partnerUser = users_list[sessionParams.client2UserName];
             // check validity 
-            if (retUser1FromDB == null || retUser2FromDB == null || connectedUser == null)
+            if (retUser1FromDB == null || retUser2FromDB == null || localUser == null || partnerUser == null)
             {
                 if(retUser1FromDB == null)
                 {
@@ -40,7 +40,11 @@ namespace KdcService
                 {
                     Console.Write(sessionParams.client2UserName + "not exist in DB");
                 }
-                if(connectedUser == null)
+                if(localUser == null)
+                {
+                    Console.Write(sessionParams.client1UserName + "not logged in");
+                }
+                if (partnerUser == null)
                 {
                     Console.Write(sessionParams.client2UserName + "not logged in");
                 }
@@ -48,20 +52,21 @@ namespace KdcService
             }
 
             // genrate new session key
-            byte[] sessiomKey = CAes.NewKey();
+            byte[] sessionKey = CAes.NewKey();
 
             //encrypt Eka [ Ks ||  || Kb[Ks] ]
-            byte[] encryptedDataForClientB = CAes.SimpleEncryptWithPassword(sessiomKey, retUser2FromDB.PassWord); //Kb[Ks]
-            byte[] keyA = CAes.SimpleEncryptWithPassword(sessiomKey, retUser1FromDB.PassWord); //Ka[Ks]
-            byte[] keyAB = CAes.SimpleEncryptWithPassword(encryptedDataForClientB, retUser1FromDB.PassWord); //Ka[clientB data]
+
+            byte[] encryptedDataForClientB = CAes.SimpleEncrypt(sessionKey, partnerUser.SessionKey , partnerUser.SessionKey); //Kb[Ks]
+            byte[] keyA = CAes.SimpleEncrypt(sessionKey, localUser.SessionKey, localUser.SessionKey); //Ka[Ks]
+            byte[] keyAB = CAes.SimpleEncrypt(encryptedDataForClientB, localUser.SessionKey, localUser.SessionKey); //Ka[clientB data]
 
             // set return value
             CSessionKeyResponse retVal = new CSessionKeyResponse();
             retVal.m_sessionKeyA = keyA;
             retVal.m_sessionKeyB = keyAB;
 
-            users_list[sessionParams.client1UserName].clientKdcCallBack.startChatSession(retUser2FromDB.ID + 1100);
-            users_list[sessionParams.client2UserName].clientKdcCallBack.startChatSession(retUser1FromDB.ID + 1100);
+            users_list[sessionParams.client1UserName].clientKdcCallBack.startChatSession(retUser2FromDB.ID + 1100, retUser2FromDB.Name, true);
+            users_list[sessionParams.client2UserName].clientKdcCallBack.startChatSession(retUser1FromDB.ID + 1100, retUser1FromDB.Name, false);
 
             return retVal;
         }

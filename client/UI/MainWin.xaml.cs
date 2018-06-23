@@ -26,6 +26,7 @@ namespace client
     public partial class MainWin : Window
     {
         private readonly BackgroundWorker getSessionKeyWorker = new BackgroundWorker();
+        private readonly BackgroundWorker startChatWindowWorker = new BackgroundWorker();
         private IKdcService proxy;
         public MainWin()
         {
@@ -44,6 +45,7 @@ namespace client
             {
                 Dispatcher.Invoke(() => openChatSession(message_contant));
             };
+
 
 
             proxy = KdcProxy.Instance.GetProxy();
@@ -81,7 +83,10 @@ namespace client
                 return;
             }
             byte[] sessionKey = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyA, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
-            byte[] sessionPartnerData = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyB, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey); 
+            byte[] sessionPartnerData = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyB, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
+            session sessionData = ClientAllData.Instance.getSession(partnerUsernameInvoked);
+            sessionData.setSessionKey(sessionKey, sessionPartnerData);
+            sessionData.startSending();
         }
 
         private void start_chat_Button_Click(object sender, RoutedEventArgs e)
@@ -92,10 +97,21 @@ namespace client
             }
         }
 
-        public void openChatSession(int remotePort)
+        public void openChatSession(userPortData remoteUserData)
+        {
+            session chatSession = new session(ClientAllData.Instance.getMyClient().m_localPort, remoteUserData.port);
+            ClientAllData.Instance.addNewSession(chatSession, remoteUserData.userName);
+            if(!remoteUserData.isMaster)
+            {
+                session retChatSession = ClientAllData.Instance.getSession(remoteUserData.userName);
+                retChatSession.startReceving();
+            }
+
+        }
+
+        public void openChatWindow(chatWindowParams chatWinParams)
         {
 
-            remotePort = remotePort;
         }
 
         public void addUserToPartnerUsers(List<string> usernames)

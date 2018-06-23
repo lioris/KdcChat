@@ -14,7 +14,7 @@ namespace client
     class ClientKdcCallBack : IClientKdcCallBack
     {
         public EventHandler<List<string>> newConnectedUserEvnt;
-        public EventHandler<int> openSessionChatEvnt;
+        public EventHandler<userPortData> openSessionChatEvnt;
 
         #region Singelton
         private static ClientKdcCallBack _instance;
@@ -62,12 +62,16 @@ namespace client
 
         }
 
-        public void startChatSession(int remotePort)
+        public void startChatSession(int remotePort, string remoteUserName, bool isMaster)
         {
+            userPortData userPort = new userPortData();
+            userPort.port = remotePort;
+            userPort.userName = remoteUserName;
+            userPort.isMaster = isMaster;
             var evt = openSessionChatEvnt;
             if (evt != null)
             {
-                evt(this, remotePort);
+                evt(this, userPort);
             }
         }
 
