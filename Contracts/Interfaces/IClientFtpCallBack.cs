@@ -1,15 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.ServiceModel;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ServiceModel;
 
 namespace Contracts
 {
+    [ServiceContract]
     public interface IClientFtpCallBack
     {
         [OperationContract(IsOneWay = true)]
-        void printHelloFtp(string massage);
+        void finishRequstConnectionProcess(bool finishStatus); // should be encrypted - i smimplified it
+
     }
 }

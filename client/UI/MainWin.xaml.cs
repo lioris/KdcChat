@@ -1,23 +1,13 @@
-﻿using client.resources;
+﻿using client.CallBacks;
+using client.resources;
 using common;
 using Contracts;
 using Contracts.logicClasses;
-using LinqToSql;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace client
 {
@@ -50,6 +40,11 @@ namespace client
             addUserToPartnerUsers(allUsers);
 
             ftpProxy = FtpProxy.Instance.GetFtpProxy();
+
+            ClientFtpCallBack.Instance.finishRequstConnectionProcessEvent += (sender, finishedProcess) =>
+            {
+                Dispatcher.Invoke(() => finishRequstConnectionProcessUI(finishedProcess));
+            };
         }
 
         private void getSessionKeyWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -150,20 +145,25 @@ namespace client
             ftpTicketRequst.SessionKeyClientFTPEncryptedForFTP = ftpTicketResponse.SessionKeyClientFTPEncryptedForFTP;
             
             ftpTicketRequst.UserNameencryptedForFtpWithSessionKey = CAes.SimpleEncrypt(clientData.username, sessionKey, sessionKey);  
+            ftpProxy.requstForConnectionWithSessionKey(ftpTicketRequst); // non blocking
 
+            //TODO: should set timer for time out
+        }
 
-            bool isConnectionAproved = ftpProxy.requstForConnectionWithSessionKey(ftpTicketRequst); // blocking
-
-
-            if (isConnectionAproved)
+        private void finishRequstConnectionProcessUI(bool finishStatus)
+        {
+            if (finishStatus)
             {
-                int x = 0 ;
-                x = x + 1;
+                startChatBtn.Visibility = Visibility.Hidden;
+                startChatBtn.IsEnabled = false;
+
+                downLoadFileButton.Visibility = Visibility.Visible;
+                ftpFilesComboBox.Visibility = Visibility.Visible;
+
+                downLoadFileButton.IsEnabled = true;
+                ftpFilesComboBox.IsEnabled = true;
             }
-            else
-            {
-                return;
-            }
+            
         }
     }
 }

@@ -9,8 +9,8 @@ namespace Contracts
         [OperationContract]
         void printKoko();
 
-        [OperationContract]
-        bool requstForConnectionWithSessionKey(FtpTicketRequst ftpTicketRequst); // blocking
+        [OperationContract(IsOneWay = true)]
+        void requstForConnectionWithSessionKey(FtpTicketRequst ftpTicketRequst); // blocking
 
 
 

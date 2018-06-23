@@ -22,27 +22,26 @@ namespace ftpService
             Console.WriteLine("lior is awsom");
         }
 
-        public bool requstForConnectionWithSessionKey(FtpTicketRequst ftpTicketRequst)
+        public void requstForConnectionWithSessionKey(FtpTicketRequst ftpTicketRequst)
         {
+            IClientFtpCallBack iClientFtpCallBack = OperationContext.Current.GetCallbackChannel<IClientFtpCallBack>();
             KdcFtpKey retKeyFromDB = m_FtpDBservice.getKdcFtpKey("KDC");
 
-            if (retKeyFromDB == null)
-            {
-                return false;
+            if (retKeyFromDB == null) {
+                iClientFtpCallBack.finishRequstConnectionProcess(false);
             }
 
             byte[] sessionKey = CAes.SimpleDecryptWithPassword(ftpTicketRequst.SessionKeyClientFTPEncryptedForFTP, retKeyFromDB.PassWord);
             string usenameDecryptedWithFtpKdcKey = CAes.SimpleDecryptWithPassword(ftpTicketRequst.UserNameencryptedForFtpWithFtpKey, retKeyFromDB.PassWord);
             string usenameDecryptedWithSessionKey = CAes.SimpleDecrypt(ftpTicketRequst.UserNameencryptedForFtpWithSessionKey, sessionKey, sessionKey);
 
-            if (usenameDecryptedWithFtpKdcKey == usenameDecryptedWithSessionKey)
+            if (usenameDecryptedWithFtpKdcKey == usenameDecryptedWithSessionKey) // OK 
             {
-                return true;
+                iClientFtpCallBack.finishRequstConnectionProcess(true);
+                return;
             }
-            else
-            {
-                return false;
-            }     
+
+            iClientFtpCallBack.finishRequstConnectionProcess(false);
         }
     }
 }

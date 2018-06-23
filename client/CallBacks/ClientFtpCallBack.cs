@@ -1,14 +1,12 @@
 ﻿using Contracts;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace client.CallBacks
 {
     class ClientFtpCallBack : IClientFtpCallBack
     {
+        public event EventHandler<bool> finishRequstConnectionProcessEvent;
+
         #region Singelton
         private static ClientFtpCallBack _instance;
 
@@ -26,12 +24,13 @@ namespace client.CallBacks
                 return _instance;
             }
         }
+
+        public void finishRequstConnectionProcess(bool finishStatus)
+        {
+            finishRequstConnectionProcessEvent?.Invoke(this, finishStatus);
+        }
         #endregion
 
 
-        public void printHelloFtp(string massage)
-        {
-            Console.WriteLine("lior");
-        }
     }
 }
