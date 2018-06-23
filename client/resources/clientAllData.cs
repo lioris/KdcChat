@@ -8,7 +8,7 @@ using LinqToSql;
 
 namespace client
 {
-    class clientAllData
+    class ClientAllData
     {
         //private DuplexChannelFactory<IKdcService> channel;
         //private IKdcService proxy;
@@ -17,21 +17,21 @@ namespace client
         private List<string> m_partnerUser;
         private Dictionary<string, session> m_partnerSession;
         #region Singelton
-        private static clientAllData _instance;
+        private static ClientAllData _instance;
 
-        private clientAllData()
+        private ClientAllData()
         {
             m_myUser = new User();
             m_partnerUser = new List<string>();
             m_partnerSession = new Dictionary<string, session>();
         }
 
-        public static clientAllData Instance
+        public static ClientAllData Instance
         {
             get
             {
                 if (_instance == null)
-                    _instance = new clientAllData();
+                    _instance = new ClientAllData();
 
                 return _instance;
             }
@@ -42,6 +42,11 @@ namespace client
         internal User getMyClient()
         {
             return m_myUser;
+        }
+
+        internal void setMyClient(User user)
+        {
+            m_myUser = user;
         }
 
         internal List<string> getAllPartnersUsers()
