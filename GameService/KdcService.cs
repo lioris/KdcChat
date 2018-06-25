@@ -99,7 +99,7 @@ namespace KdcService
                 msgKdcToClientLoggin.m_localPort = CAes.SimpleEncryptWithPassword(localPortByte, retUserFromDB.PassWord);
 
                 UserServiceData userServiceData = new UserServiceData(userSessionKey, OperationContext.Current.GetCallbackChannel<IClientKdcCallBack>());
-                userServiceData.logginChallenge = challenge;
+                userServiceData.logginChallenge = challenge + challenge;
                 users_list.Add(userName, userServiceData);
             }
             else
@@ -155,7 +155,8 @@ namespace KdcService
             {
                 if(!logginStatus.m_logInFail)
                 {
-                    if (userData.logginChallenge == CAes.SimpleDecrypt(logginStatus.m_challenge, userData.SessionKey, userData.SessionKey))
+                    string logginChalleng = CAes.SimpleDecrypt(logginStatus.m_challenge, userData.SessionKey, userData.SessionKey);
+                    if (userData.logginChallenge == logginChalleng)
                     {
                         retVal = true;
                         sendNewUserToAllClients(logginStatus.m_username, 1000);

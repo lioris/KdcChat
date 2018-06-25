@@ -36,6 +36,8 @@ namespace client.resources
             ipPartnerEndPointSend = new IPEndPoint(ipAddress, m_partnerPort);
             ipPartnerEndPointRcv = new IPEndPoint(ipAddress, m_partnerPort);
 
+    
+
             udpClient = null;
             try
             {
