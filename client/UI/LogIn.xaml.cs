@@ -122,7 +122,7 @@ namespace client
                     CLogInStatus logginStatus = new CLogInStatus();
                     logginStatus.m_username = retDecUserName;
                     logginStatus.m_logInFail = false;
-                    logginStatus.m_challenge = CAes.SimpleEncrypt(retChallenge, retDecPassword, retDecPassword);
+                    logginStatus.m_challenge = CAes.SimpleEncrypt(retChallenge + retChallenge, retDecPassword, retDecPassword);
                     if(proxy.SetLoginStatus(logginStatus))
                     {
                         clientPrivateData myClient =  ClientAllData.Instance.getMyClient();

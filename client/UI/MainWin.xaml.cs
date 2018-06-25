@@ -16,7 +16,7 @@ namespace client
     /// </summary>
     public partial class MainWin : Window
     {
-        public EventHandler<CSessionKeyResponse> startChatHandshakeEvnt;
+        public EventHandler<CSessionKeyResponse> setChatSessionKeyEvnt;
 
         private readonly BackgroundWorker getSessionKeyForChatWorker = new BackgroundWorker();
         private readonly BackgroundWorker getSessionKeyForFtpWorker = new BackgroundWorker();
@@ -59,7 +59,6 @@ namespace client
         {
             
             WindowsMgr.Instance.addWindow(Constants.CHAT_MASSAGE_WINDOW + userPort.userName, new ChatWindow(userPort));
-            WindowsMgr.Instance.GetWindow(Constants.CHAT_MASSAGE_WINDOW + userPort.userName).Show();
         }
 
         private void getSessionKeyWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
@@ -93,10 +92,10 @@ namespace client
             }
 
             
-            Thread.Sleep(1000);
+            Thread.Sleep(200);
             
 
-            startChatHandshakeEvnt?.Invoke(this, sessionRespons);
+            setChatSessionKeyEvnt?.Invoke(this, sessionRespons);
 
             /*byte[] sessionKey = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyA, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
             byte[] sessionPartnerData = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyB, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
@@ -120,7 +119,7 @@ namespace client
             if(!remoteUserData.isMaster)
             {
                 session retChatSession = ClientAllData.Instance.getSession(remoteUserData.userName);
-                retChatSession.startReceving();
+                //retChatSession.startReceving();
             }
 
         }
