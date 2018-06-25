@@ -1,4 +1,6 @@
-﻿using System;
+﻿using client.resources;
+using Contracts;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,22 @@ namespace client
     /// </summary>
     public partial class ChatWindow : Window
     {
-        public ChatWindow()
+        userPortData m_userPort;
+        public ChatWindow(userPortData userPort)
         {
             InitializeComponent();
+            m_userPort = userPort;
+            MainWin mainWindow = (MainWin)WindowsMgr.Instance.GetWindow(Constants.MAIN_WINDOW);
+            mainWindow.startChatHandshakeEvnt += (sender, sessionRespons) =>
+            {
+                Dispatcher.Invoke(() => startChatHandshake(sessionRespons));
+            };
+
+        }
+
+        public void startChatHandshake(CSessionKeyResponse sessionRespons)
+        {
+            Console.WriteLine("chatwindow satrt");
         }
     }
 }

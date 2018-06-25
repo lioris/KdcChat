@@ -100,9 +100,8 @@ namespace client.resources
 
             if(sessionOk)
             {
-                Window chatwin = new ChatWindow();
-                WindowsMgr.Instance.addWindow("ChatWindow", chatwin);
-                chatwin.Show();
+
+
             }
         }
 
@@ -162,10 +161,7 @@ namespace client.resources
             if(sessionOk)
             {
                 m_sessionKey = sessionKey;
-                Window chatwin = new ChatWindow();
-                WindowsMgr.Instance.addWindow("ChatWindow", chatwin);
-                chatwin.Show();
-                udpClient.Receive(ref ipPartnerEndPointRcv);
+         
 
             }
         }

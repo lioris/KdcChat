@@ -110,6 +110,16 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <None Include="KdcFtpClientsDB.dbml.layout">
+      <DependentUpon>KdcFtpClientsDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="KdcClientsDB.dbml.layout">
+      <DependentUpon>KdcClientsDB.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
     <Content Include="KdcClientsDB.mdf">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -124,16 +134,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
       <DependentUpon>KdcFtpKeysDB.mdf</DependentUpon>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="KdcFtpClientsDB.dbml.layout">
-      <DependentUpon>KdcFtpClientsDB.dbml</DependentUpon>
-    </None>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="KdcClientsDB.dbml.layout">
-      <DependentUpon>KdcClientsDB.dbml</DependentUpon>
-    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

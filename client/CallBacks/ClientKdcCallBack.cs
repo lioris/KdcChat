@@ -15,6 +15,7 @@ namespace client
     {
         public EventHandler<List<string>> newConnectedUserEvnt;
         public EventHandler<userPortData> openSessionChatEvnt;
+        public EventHandler<userPortData> openChatWindowEvnt;
 
         #region Singelton
         private static ClientKdcCallBack _instance;
@@ -68,11 +69,13 @@ namespace client
             userPort.port = remotePort;
             userPort.userName = remoteUserName;
             userPort.isMaster = isMaster;
-            var evt = openSessionChatEvnt;
-            if (evt != null)
-            {
-                evt(this, userPort);
-            }
+            openChatWindowEvnt?.Invoke(this, userPort);
+
+            //var evt = openSessionChatEvnt;
+            //if (evt != null)
+            //{
+            //    evt(this, userPort);
+            //}
         }
 
         public void removeDisconnectedUser(string massage)

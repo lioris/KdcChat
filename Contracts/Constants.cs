@@ -21,6 +21,7 @@ namespace Contracts
         //windows names
         public const string LOGIN_WINDOW = "login";
         public const string MAIN_WINDOW = "main_window";
-        
+        public static string CHAT_MASSAGE_WINDOW = "chatMassageWindow";
+
     }
 }

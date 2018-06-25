@@ -16,6 +16,8 @@ namespace client
     /// </summary>
     public partial class MainWin : Window
     {
+        public EventHandler<CSessionKeyResponse> startChatHandshakeEvnt;
+
         private readonly BackgroundWorker getSessionKeyForChatWorker = new BackgroundWorker();
         private readonly BackgroundWorker getSessionKeyForFtpWorker = new BackgroundWorker();
         private IKdcService kdcProxy;
@@ -34,6 +36,12 @@ namespace client
                 Dispatcher.Invoke(() => addUserToPartnerUsers(message_contant));
             };
 
+            ClientKdcCallBack.Instance.openChatWindowEvnt += (sender, userPort) =>
+            {
+                Dispatcher.Invoke(() => openChatWindow(userPort));
+            };
+
+
             kdcProxy = KdcProxy.Instance.GetProxy();
             List<string> allUsers = kdcProxy.getAllConnectedUsers();
             allUsers.Remove(ClientAllData.Instance.getMyUsername());
@@ -47,8 +55,16 @@ namespace client
             };
         }
 
+        public void openChatWindow(userPortData userPort)
+        {
+            
+            WindowsMgr.Instance.addWindow(Constants.CHAT_MASSAGE_WINDOW + userPort.userName, new ChatWindow(userPort));
+            WindowsMgr.Instance.GetWindow(Constants.CHAT_MASSAGE_WINDOW + userPort.userName).Show();
+        }
+
         private void getSessionKeyWorker_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs e)
         {
+
         }
 
         private void getSessionKeyWorker_DoWork(object sender, DoWorkEventArgs e)
@@ -75,11 +91,18 @@ namespace client
                 //report error
                 return;
             }
-            byte[] sessionKey = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyA, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
+
+            
+            Thread.Sleep(1000);
+            
+
+            startChatHandshakeEvnt?.Invoke(this, sessionRespons);
+
+            /*byte[] sessionKey = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyA, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
             byte[] sessionPartnerData = CAes.SimpleDecrypt(sessionRespons.m_sessionKeyB, user.m_kdcAsSessionKey, user.m_kdcAsSessionKey);
             session sessionData = ClientAllData.Instance.getSession(partnerUsernameInvoked);
             sessionData.setSessionKey(sessionKey, sessionPartnerData);
-            sessionData.startSending();
+            sessionData.startSending();*/
         }
 
         private void start_chat_Button_Click(object sender, RoutedEventArgs e)
