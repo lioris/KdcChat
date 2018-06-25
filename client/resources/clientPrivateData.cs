@@ -10,6 +10,7 @@ namespace client.resources
     {
         public  string username;
         public byte[] m_kdcAsSessionKey;
+        public byte[] m_ftpSessionKey;
         public bool m_loginSucccess;
         public int m_localPort;
         public clientPrivateData()

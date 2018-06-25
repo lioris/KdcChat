@@ -13,7 +13,7 @@
         <Label x:Name="label" Content="FTP SERVER" HorizontalAlignment="Left" Margin="205,10,0,0" VerticalAlignment="Top" Width="78"/>
         <Button x:Name="ftpConnectButton" Content="Connect" HorizontalAlignment="Left" Margin="205,36,0,0" VerticalAlignment="Top" Width="78" Click="ftpConnectButton_Click"/>
         <ComboBox x:Name="ftpFilesComboBox" HorizontalAlignment="Left" Margin="193,68,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False" Visibility="Hidden"/>
-        <Button x:Name="downLoadFileButton" Content="download" HorizontalAlignment="Left" Margin="193,95,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False" Visibility="Hidden"/>
+        <Button x:Name="downLoadFileButton" Content="download" HorizontalAlignment="Left" Margin="193,95,0,0" VerticalAlignment="Top" Width="120" IsEnabled="False" Click="downLoadFileButton_Click" Visibility="Hidden" />
 
     </Grid>
 </Window>

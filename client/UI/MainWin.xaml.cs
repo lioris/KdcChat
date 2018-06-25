@@ -163,6 +163,8 @@ namespace client
 
             byte[] sessionKey = CAes.SimpleDecrypt(ftpTicketResponse.SessionKeyClientFTPEncryptedForClient, clientData.m_kdcAsSessionKey, clientData.m_kdcAsSessionKey);
 
+            ClientAllData.Instance.getMyClient().m_ftpSessionKey = sessionKey;
+
             FtpTicketRequst ftpTicketRequst = new FtpTicketRequst();
             ftpTicketRequst.UserNameencryptedForFtpWithFtpKey = ftpTicketResponse.UserNameencryptedForFtpWithFtpKey;
             ftpTicketRequst.SessionKeyClientFTPEncryptedForFTP = ftpTicketResponse.SessionKeyClientFTPEncryptedForFTP;
@@ -173,12 +175,18 @@ namespace client
             //TODO: should set timer for time out
         }
 
-        private void finishRequstConnectionProcessUI(bool finishStatus)
+        private void finishRequstConnectionProcessUI(List<string> finishStatus)
         {
-            if (finishStatus)
+            if (finishStatus != null)
             {
-                startChatBtn.Visibility = Visibility.Hidden;
-                startChatBtn.IsEnabled = false;
+                foreach (string fileName in finishStatus)
+                {
+                    string fileNameResultString = CAes.SimpleDecrypt(fileName, ClientAllData.Instance.getMyClient().m_ftpSessionKey, ClientAllData.Instance.getMyClient().m_ftpSessionKey);
+                    ftpFilesComboBox.Items.Add(fileNameResultString);
+                }
+
+                ftpConnectButton.Visibility = Visibility.Hidden;
+                ftpConnectButton.IsEnabled = false;
 
                 downLoadFileButton.Visibility = Visibility.Visible;
                 ftpFilesComboBox.Visibility = Visibility.Visible;
@@ -187,6 +195,21 @@ namespace client
                 ftpFilesComboBox.IsEnabled = true;
             }
             
+        }
+
+        private void downLoadFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            //send requst to the server 
+            if (ftpFilesComboBox.IsEnabled == true)
+            {
+                if (ftpFilesComboBox.Text != null)
+                {
+                    string  encrypedFile = CAes.SimpleEncrypt(ftpFilesComboBox.Text, ClientAllData.Instance.getMyClient().m_ftpSessionKey, ClientAllData.Instance.getMyClient().m_ftpSessionKey);
+                    ftpProxy.requstForDownloadFile(encrypedFile, ClientAllData.Instance.getMyUsername());
+                }
+            }
+            
+
         }
     }
 }

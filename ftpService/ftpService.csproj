@@ -49,6 +49,7 @@
     <Compile Include="FtpDBservice.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="FtpService.cs" />
+    <Compile Include="UserFtpServiceData.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Contracts\Contracts.csproj">
@@ -60,9 +61,7 @@
       <Name>LinqToSql</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="files\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <WCFMetadata Include="Service References\" />
   </ItemGroup>

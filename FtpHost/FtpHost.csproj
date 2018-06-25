@@ -63,6 +63,13 @@
       <Name>ftpService</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="files\file1.txt" />
+    <Content Include="files\‏‏file2.txt" />
+    <Content Include="files\‏‏file3.txt" />
+    <Content Include="files\‏‏file4.txt" />
+    <Content Include="files\‏‏file5.txt" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

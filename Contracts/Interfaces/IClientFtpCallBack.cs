@@ -1,4 +1,5 @@
-﻿using System.ServiceModel;
+﻿using System.Collections.Generic;
+using System.ServiceModel;
 
 namespace Contracts
 {
@@ -6,7 +7,10 @@ namespace Contracts
     public interface IClientFtpCallBack
     {
         [OperationContract(IsOneWay = true)]
-        void finishRequstConnectionProcess(bool finishStatus); // should be encrypted - i smimplified it
+        void finishRequstConnectionProcess(List<string> finishStatus);
+
+        [OperationContract(IsOneWay = true)]
+        void finishRequstForDownloadFile(byte[] fileStream, string fileNameEncrypted);
 
     }
 }
