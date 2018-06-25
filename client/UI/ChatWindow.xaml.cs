@@ -68,7 +68,8 @@ namespace client
             {
                 Dispatcher.Invoke(() => addLineToChat(sessionRespons));
             };
-            
+
+            partnerNamelabel.Content = "PARTNER NAME:  " + userPort.userName;
 
 
             threadDelegate = new ThreadStart(this.startChatHandshake);

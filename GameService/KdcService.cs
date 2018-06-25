@@ -150,6 +150,9 @@ namespace KdcService
         public bool SetLoginStatus(CLogInStatus logginStatus)
         {
             bool retVal = false;
+            if (!users_list.ContainsKey(logginStatus.m_username))
+                return retVal;
+
             UserServiceData userData = users_list[logginStatus.m_username];
             if(userData != null)
             {

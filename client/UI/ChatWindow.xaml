@@ -10,7 +10,8 @@
         <TextBox x:Name="enterMessageTxtBox" HorizontalAlignment="Left" Height="23" Margin="112,250,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="182"/>
         <Label Content="enter message" HorizontalAlignment="Left" Margin="10,247,0,0" VerticalAlignment="Top"/>
         <Button Content="send" HorizontalAlignment="Left" Margin="314,250,0,0" VerticalAlignment="Top" Width="44" Height="23" RenderTransformOrigin="0.337,0.394" Click="sendMessageBtn"/>
-        <TextBox x:Name="AllChatTxtBox" HorizontalAlignment="Left" Height="179" Margin="38,47,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="302"/>
+        <TextBox x:Name="AllChatTxtBox" HorizontalAlignment="Left" Height="179" Margin="38,47,0,0" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" VerticalAlignment="Top" Width="302" IsEnabled="False"/>
+        <Label x:Name="partnerNamelabel" Content="PARTNER NAME:" HorizontalAlignment="Left" Margin="38,10,0,0" VerticalAlignment="Top"/>
 
     </Grid>
 </Window>
